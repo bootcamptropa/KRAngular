@@ -27,10 +27,18 @@
                 $scope.model.pageTitle=$state.current.data.pageTitle;
                 
                 
-                //Testing service
-                apitestService.getAction().then(function (data) {
-                    $scope.myjson=data;
-                });
+
+                $scope.postAction = function(){
+                    apitestService.postAction().then(function (data) {
+                        $scope.myjson=data;
+                    });
+                };
+
+                $scope.getAction = function(){
+                    apitestService.getAction().then(function (data) {
+                        $scope.myjson=data;
+                    });
+                };
             };
             init();
         }]);

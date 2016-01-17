@@ -9,9 +9,12 @@ angular.module('apitestService', [])
                         if (!extra_route) {
                             extra_route = '';
                         }
-                        return $resource(API_URL + '/' + extra_route, {}, {
+                        return $resource(API_URL + '/products/' + extra_route, {}, {
+                            stripTrailingSlashes: false,
                             query: {
-                                timeout: 15000
+                                timeout: 15000,
+                                method: 'GET',
+                                isArray: true
                             },
                             save: {
                                 timeout: 15000,
@@ -19,14 +22,32 @@ angular.module('apitestService', [])
                             },
                             get: {
                                 timeout: 15000,
-                                method: 'GET'
+                                method: 'GET',
+                                isArray: true
                             }
                         });
                     },
                     getAction: function () {
                         //Service action with promise resolve (then)
                         var def = $q.defer();
-                        this.api('?json=%5BJSON-code-to-validate%5D').get({}, {}, function (data) {
+                        this.api().get({}, {}, function (data) {
+                            $log.warn('Api::data:: ');
+                            $log.warn(data);
+
+                            data.forEach(function(item){
+                                console.log(item);
+                            });
+
+                            def.resolve(data);
+                        }, function (err) {
+                            def.reject(err);
+                        });
+                        return def.promise;
+                    },
+                    postAction: function () {
+                        //Service action with promise resolve (then)
+                        var def = $q.defer();
+                        this.api().save({}, {}, function (data) {
                             $log.warn('Api::data:: ');
                             $log.warn(data);
                             def.resolve(data);

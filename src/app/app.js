@@ -1,9 +1,11 @@
 (function (app) {
 
-    app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider',
-        function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
+    app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider','$resourceProvider',
+        function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider,$resourceProvider) {
+            $resourceProvider.defaults.stripTrailingSlashes = false;
             $urlRouterProvider.otherwise('/');
             $httpProvider.interceptors.push('cInterceptor');
+
 
             //Root view, very important resolve data async before states
             $stateProvider
@@ -11,19 +13,6 @@
                     url: '',
                     abstract: true,
                     resolve: {
-                        load_data: (['globalService', '$q', '$log',
-                            function (globalService, $q, $log) {
-                                $log.warn('App::ResolveData::');
-                                //Simpli example
-                                var def = $q.defer();
-                                globalService.api().get(function (data) {
-                                    def.resolve(data);
-                                    $log.warn(data);
-                                }, function (err) {
-                                    def.reject(err);
-                                });
-                                return def.promise;
-                            }])
                     },
                     views: {
                         'header': {
@@ -106,6 +95,7 @@
     'KRAngular.customer',
     'KRAngular.product',
     'KRAngular.about',
+    'KRAngular.apitest',
     'KRAngular.infinite',
     'KRAngular.auth',
     'ui.bootstrap',
