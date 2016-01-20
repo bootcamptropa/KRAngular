@@ -13,7 +13,8 @@ angular.module('cInterceptor', [])
                         $rootScope.customHeader = sessionStorage.getItem(CUSTOM_HEADER);
 
                         config.headers = {
-                            'Content-type': 'application/json;charset=UTF-8'
+                            'Content-type': 'application/json;charset=UTF-8',
+                            'Authorization': 'Bearer 8H04j1yP28FfMiStIl0E4jA8gGI62g'
                         };
 
                         //Add custom header/data to request
