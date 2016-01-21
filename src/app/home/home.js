@@ -17,12 +17,17 @@
                     });                               
         }]);
 
-    app.controller('HomeController', ['$log','$scope','$state', function ($log,$scope,$state) {
+    app.controller('HomeController', ['$log','$scope','$state','productService', function ($log,$scope,$state,productService) {
 
             var init = function () {
                 $log.info('App:: Starting HomeController');
                 $scope.model={};
                 $scope.model.pageTitle=$state.current.data.pageTitle;
+
+                productService.getAction().then(function(data){
+                    console.log(data);
+                    $scope.products = data;
+                });
 
                 $scope.photos = [
                     {id: '1', 'title': 'A nice day!', src: "http://lorempixel.com/200/190/animals"},
@@ -51,5 +56,7 @@
         }]);
 }(angular.module("KRAngular.home", [
     'ui.router',
-    'akoenig.deckgrid'
+    'akoenig.deckgrid',
+    'productService',
+    'genericDirectives'
 ])));

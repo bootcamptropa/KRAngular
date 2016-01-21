@@ -22,9 +22,7 @@ angular.module('genericDirectives', [])
                 onEdit: '&'
             },
             link: function (scope) {
-                scope.gotoAlbum = function (id_album) {
-                    $state.go('root.product', {'id_product': parseInt(id_product)});
-                };
+
             }
         };
     });
