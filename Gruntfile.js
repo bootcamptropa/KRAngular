@@ -91,6 +91,7 @@ module.exports = function (grunt) {
                 'vendor/ngmap/build/scripts/ng-map.min.js',
                 'vendor/lodash/lodash.js',
                 'vendor/walladog-dropdown-multiselect/src/walladog-dropdown-multiselect.js',
+                'vendor/angular-local-storage/dist/angular-local-storage.js'
             ],
             css: [
             ],
@@ -664,7 +665,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:all','hftemplates', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
         'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets', 'copy:extra_templates',
-        'copy:build_appjs', 'copy:build_vendorjs', 'ngAnnotate:build', 'index:build', 'karmaconfig',
+        'copy:build_appjs', 'copy:build_vendorjs', 'ngAnnotate:build', 'index:build','karmaconfig',
         'karma:continuous'
     ]);
 

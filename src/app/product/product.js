@@ -50,9 +50,9 @@
                 $scope.addSlide();
             }
             NgMap.getMap().then(function(map) {
-                console.log(map.getCenter());
-                console.log('markers', map.markers);
-                console.log('shapes', map.shapes);
+                $log.debug(map.getCenter());
+                $log.debug('markers', map.markers);
+                $log.debug('shapes', map.shapes);
             });
         };
 
@@ -83,9 +83,9 @@
                 $scope.addSlide();
             }
             NgMap.getMap().then(function(map) {
-                console.log(map.getCenter());
-                console.log('markers', map.markers);
-                console.log('shapes', map.shapes);
+                $log.debug(map.getCenter());
+                $log.debug('markers', map.markers);
+                $log.debug('shapes', map.shapes);
             });
         };
 

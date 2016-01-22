@@ -3,46 +3,33 @@
  */
 
 angular.module('configService', [])
-    .factory('configService', ['$resource', '$q','$rootScope','$log',
-        function ($resource, $q,$rootScope,$log) {
+    .factory('configService', ['$resource', '$q','$rootScope','$log','globalService',
+        function ($resource, $q,$rootScope,$log,globalService) {
             return {
-                api: function (extra_route) {
-                    if (!extra_route) {
-                        extra_route = '';
-                    }
-                    return $resource(API_URL + '/config' + extra_route, {}, {
-                        query: {
-                            timeout: 15000
-                        },
-                        save: {
-                            timeout: 15000,
-                            method: 'POST'
-                        },
-                        get: {
-                            timeout: 15000,
-                            method: 'GET'
-                        }
-                    });
-                },
-                getConfiguration: function () {
-                    //Get app configuration
-                    var def = $q.defer();
-                    this.api().get({}, {}, function (data) {
-                        def.resolve(data);
-                    }, function (err) {
-                        def.reject(err);
-                    });
-                    return def.promise;
-                },
                 setUpInitVars: function(){
                     $rootScope.domReady = false;
                     $rootScope.showCameraIcon = false;
-                    $rootScope.userData = {
+                    $rootScope.uData = {
                         isLogged:false,
-                        idCustomer:0,
-                        userName:'unknown',
-                        csrftoken:''
+                        wcookie:false,
+                        wcookier:false,
+                        userId:false,
+                        userName:'Identificate',
+                        csrftoken:false,
+                        firstName:false,
+                        lastnNme:false,
+                        email:false,
+                        avatar:false
+
                     };
+
+                    var wtoken = globalService.getStorageItem('wcookie');
+                    var wtoken2 = globalService.getStorageItem('wcookier');
+
+                    if(wtoken && wtoken2){
+                        $rootScope.uData.wcookie = wtoken;
+                        $rootScope.uData.wcookier = wtoken2;
+                    }
                 },
                 setUpMessages: function(){
                     $rootScope.aMessages = {

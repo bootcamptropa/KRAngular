@@ -1,0 +1,35 @@
+
+<table class="table table-condensed table-hover">
+    <thead>
+    <tr>
+        <th>
+            #
+        </th>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Fecha Creación
+        </th>
+        <th>
+            Precio
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in model">
+        <td>
+            {{item.id}}
+        </td>
+        <td>
+            {{item.name}}
+        </td>
+        <td>
+            {{item.created_at|date}}
+        </td>
+        <td>
+            {{item.price|currency:"€":2}}
+        </td>
+    </tr>
+    </tbody>
+</table>

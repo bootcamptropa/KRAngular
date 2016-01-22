@@ -1,10 +1,22 @@
 (function (app) {
 
-    app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider','$resourceProvider',
-        function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider,$resourceProvider) {
+    app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider','$resourceProvider','localStorageServiceProvider',
+        function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider,$resourceProvider,localStorageServiceProvider) {
             $resourceProvider.defaults.stripTrailingSlashes = false;
             $urlRouterProvider.otherwise('/');
             $httpProvider.interceptors.push('cInterceptor');
+
+            //Config cookie system 1.0 2.0
+            localStorageServiceProvider
+                .setPrefix('')
+                .setStorageType('localStorage')
+                .setStorageCookie(1, '/')
+                //.setStorageCookieDomain('walladog.com')
+                //For testing pruposals use empty string instade of walladog domain
+                .setStorageCookieDomain('')
+                .setNotify(true, true);
+
+
 
 
             //Root view, very important resolve data async before states
@@ -72,6 +84,9 @@
 
     app.controller('AppController', ['$scope', '$log', function ($scope, $log) {
         $log.info('App:: Starting AppController');
+
+
+
     }]);
 
     app.controller('FrontController', ['$scope', '$log','$location', function ($scope, $log,$location) {
@@ -89,6 +104,8 @@
 }(angular.module("KRAngular", [
     'ngResource',
     'globalService',
+    'LocalStorageModule',
+    'cInterceptor',
     'configService',
     'genericDirectives',
     'KRAngular.home',
@@ -98,13 +115,13 @@
     'KRAngular.apitest',
     'KRAngular.infinite',
     'KRAngular.auth',
+    'KRAngular.uprofile',
     'ui.bootstrap',
     'templates-app',
     'templates-common',
     'templates-hf',
     'ui.router.state',
     'ui.router',
-    'cInterceptor',
     'ngAnimate',
     'angularjs-dropdown-multiselect'
 ])));
