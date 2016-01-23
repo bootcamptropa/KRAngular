@@ -12,7 +12,6 @@ angular.module('authService', [])
                     var API_URL_VAR = API_URL;
                     if(isOAUTH){
                         API_URL_VAR = API_URL_OAUTH;
-                        console.log('rewrite');
                     }
 
                     return $resource(API_URL_VAR + api_endpoint + extra_route, {}, {

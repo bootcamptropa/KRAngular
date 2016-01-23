@@ -14,21 +14,28 @@
         <th>
             Precio
         </th>
+        <th>
+            Acciones
+        </th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="item in model">
-        <td>
+        <td class="text-left">
             {{item.id}}
         </td>
-        <td>
+        <td class="text-left">
             {{item.name}}
         </td>
-        <td>
+        <td class="text-left">
             {{item.created_at|date}}
         </td>
-        <td>
+        <td class="text-left">
             {{item.price|currency:"€":2}}
+        </td>
+        <td class="text-left">
+            <button ng-show="model.length" class="btn btn-info btn-xs"><i class="fa fa-edit"></i></button>
+            <button ng-show="model.length" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>
         </td>
     </tr>
     </tbody>

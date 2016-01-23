@@ -6,7 +6,6 @@ angular.module('loginsService', [])
             function ($resource, $q, $log) {
                 return {
                     api: function (extra_route) {
-                        console.log('logins');
                         if (!extra_route) {
                             extra_route = '';
                         }
@@ -28,8 +27,6 @@ angular.module('loginsService', [])
                         });
                     },
                     getUserInfo: function () {
-                        console.log('entramos');
-                        //Service action with promise resolve (then)
                         var def = $q.defer();
                         this.api().get({}, {}, function (data) {
                             $log.warn('Api::data:: ');
