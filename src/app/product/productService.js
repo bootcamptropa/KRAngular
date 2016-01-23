@@ -9,7 +9,8 @@ angular.module('productService', [])
                         if (!extra_route) {
                             extra_route = '';
                         }
-                        return $resource(API_URL + '/product' + extra_route, {}, {
+                        // http://api.walladog.com/api/1.0/products/1
+                        return $resource(API_URL  + extra_route, {}, {
                             query: {
                                 timeout: 15000
                             },
@@ -26,6 +27,17 @@ angular.module('productService', [])
                                 method: 'PUT'
                             }
                         });
+                    },
+                    getProduct: function (productId) {
+                        var def = $q.defer();
+                        this.api('/products/'+productId+"/").get({}, {}, function (data) {
+                            $log.warn('Api::data:: ');
+                            $log.warn(data);
+                            def.resolve(data);
+                        }, function (err) {
+                            def.reject(err);
+                        });
+                        return def.promise;
                     },
                     getCustomer: function () {
                         var def = $q.defer();
