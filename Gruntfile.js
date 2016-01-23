@@ -47,7 +47,7 @@ module.exports = function (grunt) {
             appTemplates: ['src/app/**/*.tpl.html'],
             commonTemplates: ['src/common/**/*.tpl.html'],
             hfTemplates: ['src/app/*.tpl.html'],
-            html: ['src/index.html', 'src/header.tpl.html', 'src/footer.tpl.html'],
+            html: ['src/index.html', 'src/header.tpl.html', 'src/footer.tpl.html','src/global.tpl.html'],
             less: 'src/less/main.less'
         },
         /**
@@ -702,7 +702,7 @@ module.exports = function (grunt) {
                 });
             }
         });
-        grunt.file.copy('src/app/footer.tpl.html', 'src/app/footer.tpl.html', {
+        grunt.file.copy('src/app/footer.tpl.html', 'src/app/footer.tpl.html', 'src/app/global.tpl.html', {
             process: function (contents, path) {
                 return grunt.template.process(contents, {
                     data: {

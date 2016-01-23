@@ -27,6 +27,10 @@
                     resolve: {
                     },
                     views: {
+                        /*'global': {
+                            templateUrl: 'global.tpl.html',
+                            controller: 'GlobalController'
+                        },*/
                         'header': {
                             templateUrl: 'header.tpl.html',
                             controller: 'FrontController'
@@ -99,6 +103,10 @@
 
     app.controller('FooterController', ['$scope', '$log', function ($scope, $log) {
         $log.info('App:: Starting FooterController');
+    }]);
+
+    app.controller('GlobalController', ['$scope', '$log', function ($scope, $log) {
+        $log.info('App:: Starting GlobalController');
     }]);
 
 }(angular.module("KRAngular", [

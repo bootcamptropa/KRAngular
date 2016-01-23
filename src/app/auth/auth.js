@@ -42,6 +42,12 @@
                 $scope.model.pageTitle = $state.current.data.pageTitle;
             };
 
+            var setMsg = function(errDiv,errData,errMsg){
+                errDiv.visible=true;
+                errDiv.error=errMsg;
+                errDiv.error_description=JSON.stringify(errData);
+            };
+
             $scope.onKeyPressLogin = function($event) {
                 if ($event.keyCode == 13) {
                     $scope.doLoginOAuth2();
@@ -64,7 +70,6 @@
             };
 
             $scope.doRegister = function(){
-                console.log('registro');
                 var registerData = {
                     username:$scope.rusername,
                     password:$scope.rpassword,
@@ -74,14 +79,9 @@
                     email:$scope.remail
                 };
                 authService.doRegister(registerData).then(function(data){
-                    console.log(data);
-                    $scope.err.visible=true;
-                    $scope.err.error='Registro efectuado con éxito:';
-                    $scope.err.error_description=JSON.stringify(data);
+                    setMsg($scope.err,'Registro exitoso',false);
                 },function(err){
-                    $scope.err.visible=true;
-                    $scope.err.error='Error en el registro:';
-                    $scope.err.error_description=JSON.stringify(err.data);
+                    setMsg($scope.err,err.data,'Error en el registro');
                 });
             };
 

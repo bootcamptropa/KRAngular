@@ -11,38 +11,61 @@
                             templateUrl: 'uprofile/uprofile.tpl.html'
                         }
                     },
-                    resolve:{
-                        modelData: (['productsService', '$q', '$log',
-                            function (productsService, $q, $log) {
-                                $log.warn('UserProfile::ResolveData::');
-
-                                var def = $q.defer();
-                                productsService.getProducts().then(function (data) {
-                                    def.resolve(data);
-                                    $log.warn(data);
-                                }, function (err) {
-                                    def.reject(err);
-                                });
-                                return def.promise;
-                            }])
-                    },
                     data: {
                         pageTitle: 'uprofile'
                     }
-                });
+                })
+            .state('root.edituprofile', {
+                url: '/uprofile/editprofile',
+                parent: 'root',
+                views: {
+                    "container@": {
+                        controller: 'editUprofileController',
+                        templateUrl: 'uprofile/edituprofile.tpl.html'
+                    }
+                },
+                data: {
+                    pageTitle: 'uprofile'
+                }
+            });
         }]);
 
-    app.controller('uprofileController', ['$scope', '$log','$state','modelData', function ($scope, $log,$state,modelData) {
+    app.controller('uprofileController', ['$scope', '$log','$state','userProductsService','uTransactionsService',
+        function ($scope, $log,$state,userProductsService,uTransactionsService) {
         $log.info('App:: Starting uprofileController');
 
         var init = function () {
-            $scope.model = modelData;
+            $scope.model = {};
             $scope.model.pageTitle = $state.current.data.pageTitle;
         };
+
+        $scope.getSellingProducts = function(){
+            userProductsService.getUserProducts().then(function(data){
+                $log.info(data);
+                $scope.model = data;
+            },function(err){
+                $log.info(err);
+            });
+        };
+
+        $scope.getUserTransactions = function(){
+            uTransactionsService.getTransactions().then(function(data){
+                $log.info(data);
+                $scope.model = data;
+            },function(err){
+
+            });
+        };
+
+
+
+
         init();
     }]);
 
 }(angular.module("KRAngular.uprofile", [
     'ui.router',
-    'productsService'
+    'productsService',
+    'userProductsService',
+    'uTransactionsService'
 ])));

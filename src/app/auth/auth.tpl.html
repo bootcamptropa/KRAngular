@@ -41,11 +41,12 @@
                         <button type="button" ng-click="doLoginOAuth2()" class="btn btn-info btn-block">
                             <i class="fa fa-paw"></i> Conectar a Walladog
                         </button>
-                        <div class="alert alert-danger" role="alert" ng-click="clearErrors()" ng-show="err2.visible" style="margin-top:2px;">
+                        <div class="alert alert-info" role="alert" ng-click="clearErrors()" ng-show="err2.visible" style="margin-top:2px;">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                            <span class="sr-only">Error:</span>{{err2.error}} <sub>(click para cerrar)</sub>
+                            <span class="sr-only">Error:</span>{{err2.error}}
                             <br>
-                            <pre>{{err2.error_description}}</pre>
+                            <pre ng-show="err2.error_description">{{err2.error_description}}</pre>
+                            <sub style="cursor:pointer;">(click para cerrar)</sub>
                         </div>
                     </a>
                 </form>
@@ -94,11 +95,12 @@
                         <button type="button" ng-click="doRegister()" class="btn btn-info btn-block">
                             <i class="fa fa-paw"></i> Registrarse en Walladog
                         </button>
-                        <div class="alert alert-danger" role="alert" ng-click="clearErrors()" ng-show="err.visible" style="margin-top:2px;">
+                        <div class="alert alert-info" role="alert" ng-click="clearErrors()" ng-show="err.visible" style="margin-top:2px;">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                            <span class="sr-only">Error:</span>{{err.error}} <sub>(click para cerrar)</sub>
+                            <span class="sr-only">Error:</span>{{err.error}}
                             <br>
-                            <pre>{{err.error_description}}</pre>
+                            <pre ng-show="err.error_description">{{err.error_description}}</pre>
+                            <sub style="cursor:pointer;">(click para cerrar)</sub>
                         </div>
                     </a>
                 </form>

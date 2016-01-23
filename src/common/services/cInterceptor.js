@@ -16,6 +16,7 @@ angular.module('cInterceptor', [])
                         config.headers = {
                             'Content-type': 'application/json;charset=UTF-8',
                             'Authorization': 'Bearer ' + $rootScope.uData.wcookie
+                            /*'Authorization': 'Bearer TTRevzbqGiJsaXOHX5twNI8mBwEStT'*/
                         };
                     }
                 }
