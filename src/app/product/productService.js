@@ -9,9 +9,10 @@ angular.module('productService', [])
                         if (!extra_route) {
                             extra_route = '';
                         }
-                        return $resource(API_URL + '/product' + extra_route, {}, {
+                        return $resource(API_URL + '/products/' + extra_route, {}, {
                             query: {
-                                timeout: 15000
+                                timeout: 15000,
+                                isArray: true
                             },
                             save: {
                                 timeout: 15000,
@@ -19,7 +20,8 @@ angular.module('productService', [])
                             },
                             get: {
                                 timeout: 15000,
-                                method: 'GET'
+                                method: 'GET',
+                                isArray: true
                             },
                             put: {
                                 timeout: 15000,
@@ -27,9 +29,9 @@ angular.module('productService', [])
                             }
                         });
                     },
-                    getCustomer: function () {
+                    getAction: function () {
                         var def = $q.defer();
-                        this.api('?json=%5BJSON-code-to-validate%5D').get({}, {}, function (data) {
+                        this.api().get({}, {}, function (data) {
                             $log.warn('Api::data:: ');
                             $log.warn(data);
                             def.resolve(data);

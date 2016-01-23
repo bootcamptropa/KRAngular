@@ -151,6 +151,11 @@ body {
 
 
 /* deck grid */
+.container .row div {
+  /*margin: 0 20px 19px 0;
+  border: 1px solid;*/
+}
+
 .deckgrid {
     margin:1px auto;
     padding:10px;
@@ -171,9 +176,11 @@ body {
   //background:#fff url(images/spinner.gif) center 30px no-repeat;
   border:1px solid rgba(0, 0, 0, .15);
   border-radius:6px;
-  margin:0 10px 10px 0;
+  margin:0 20px 20px 0;
   position:relative;
-  width:201px;
+  width:220px;
+  display: inline-block;
+  text-align: left;
 }
 
 .photo .photo-index {
@@ -194,17 +201,60 @@ body {
   min-height:60px;
 }
 
-.photo .photo-description {
-  padding:5px;
+.photo .photo-name, .photo .photo-category {
+  padding: 5px;
   font-size:9px;
+  float: left;
+  width: 100%;
+  font-size: 14px;
+}
+
+.photo .photo-category{
+  color: #b5b5b5;
+}
+
+.photo .photo-name{
+  font-weight: bold;
+  color: #6a6a6a;
 }
 
 .photo .photo-price {
-  padding:5px;
+  padding: 5px;
+  width: 100%;
+  height: 22px;
+}
+
+.photo .photo-price p{
+  float: left;
+  font-size: 16px;
 }
 
 .photo .photo-author {
   padding:5px;
+  display:inline-block;
+  width:95%;
+}
+
+.photo .photo-author .avatar{
+  width:20%;
+  float:left;
+}
+
+.photo .photo-author .seller{
+  float:left;
+  width:60%;
+  margin-left: 15px;
+}
+
+.photo .photo-author .seller .name{
+  font-size: 14px;
+  font-weight: bold;
+  color: #6a6a6a;
+}
+
+.photo .photo-author .seller .products{
+  font-size: 12px;
+  color: #b5b5b5;
 }
 
 .circleBase {

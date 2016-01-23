@@ -22,8 +22,20 @@ angular.module('genericDirectives', [])
                 onEdit: '&'
             },
             link: function (scope) {
-                scope.gotoAlbum = function (id_album) {
-                    $state.go('root.product', {'id_product': parseInt(id_product)});
+
+                scope.haveAvatar = function() {
+                    if (scope.model.seller.avatar_url{
+                        return true;
+                    }
+                    return false;
+                };
+
+                scope.haveImage = function() {
+                    if (scope.model.images.length > 0){
+                        return true;
+                    }
+
+                    return false;
                 };
             }
         };
