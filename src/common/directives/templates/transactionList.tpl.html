@@ -1,0 +1,49 @@
+<div>
+    <table class="table table-condensed table-hover">
+        <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Comprador
+            </th>
+            <th>
+                Vendedor
+            </th>
+            <th>
+                Nombre Perro
+            </th>
+            <th>
+                Fecha Transacción
+            </th>
+            <th>
+                Acciones
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in model">
+            <td class="text-left">
+                {{item.id}}
+            </td>
+            <td class="text-left">
+                {{item.buyer}}
+            </td>
+            <td class="text-left">
+                {{item.seller}}
+            </td>
+            <td class="text-left">
+                {{item.product}}
+            </td>
+            <td class="text-left">
+                {{item.date_transaction|date}}
+            </td>
+            <td class="text-left">
+                <button ng-show="model.length" class="btn btn-info btn-xs"><i class="fa fa-edit"></i></button>
+                <button ng-show="model.length" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

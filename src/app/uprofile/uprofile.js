@@ -15,53 +15,87 @@
                         pageTitle: 'uprofile'
                     }
                 })
-            .state('root.edituprofile', {
-                url: '/uprofile/editprofile',
-                parent: 'root',
-                views: {
-                    "container@": {
-                        controller: 'editUprofileController',
-                        templateUrl: 'uprofile/edituprofile.tpl.html'
+                .state('root.edituprofile', {
+                    url: '/uprofile/editprofile',
+                    parent: 'root',
+                    views: {
+                        "container@": {
+                            controller: 'editUprofileController',
+                            templateUrl: 'uprofile/edituprofile.tpl.html'
+                        }
+                    },
+                    data: {
+                        pageTitle: 'uprofile'
                     }
-                },
-                data: {
-                    pageTitle: 'uprofile'
-                }
-            });
+                });
         }]);
 
-    app.controller('uprofileController', ['$scope', '$log','$state','userProductsService','uTransactionsService',
-        function ($scope, $log,$state,userProductsService,uTransactionsService) {
-        $log.info('App:: Starting uprofileController');
+    app.controller('uprofileController', ['$scope', '$log','$state','userProductsService','uTransactionsService','$filter',
+        function ($scope, $log,$state,userProductsService,uTransactionsService,$filter) {
+            $log.info('App:: Starting uprofileController');
 
-        var init = function () {
-            $scope.model = {};
-            $scope.model.pageTitle = $state.current.data.pageTitle;
-        };
+            var init = function () {
+                $scope.model = {};
+                clearModels();
+                $scope.upLoading = false;
+                $scope.upTitle = 'Perfil de Usuario';
+                $scope.model.pageTitle = $state.current.data.pageTitle;
+                $scope.getSellingProducts();
+            };
 
-        $scope.getSellingProducts = function(){
-            userProductsService.getUserProducts().then(function(data){
-                $log.info(data);
-                $scope.model = data;
-            },function(err){
-                $log.info(err);
-            });
-        };
+            var clearModels = function(){
+                $scope.modelSelling = {};
+                $scope.modelSold = {};
+                $scope.modelTransactions = {};
+                $scope.modelUser = {};
+            };
 
-        $scope.getUserTransactions = function(){
-            uTransactionsService.getTransactions().then(function(data){
-                $log.info(data);
-                $scope.model = data;
-            },function(err){
+            $scope.getSellingProducts = function(){
+                clearModels();
+                $scope.upLoading=true;
+                $scope.upTitle='En venta';
+                userProductsService.getUserProducts().then(function(data){
+                    $log.info(data);
+                    var filtered = $filter('filter')(data,{state:'Publicado'});
+                    $scope.modelSelling = filtered;
+                    $scope.upLoading = false;
+                },function(err){
+                    $log.info(err);
+                    $scope.upLoading = false;
+                });
+            };
 
-            });
-        };
+            $scope.getSoldProducts = function(){
+                clearModels();
+                $scope.upLoading=true;
+                $scope.upTitle='Vendidos';
+                userProductsService.getUserProducts().then(function(data){
+                    $log.info(data);
+                    var filtered = $filter('filter')(data,{state:'Vendido'});
+                    $scope.modelSold = filtered;
+                    $scope.upLoading = false;
+                },function(err){
+                    $log.info(err);
+                    $scope.upLoading = false;
+                });
+            };
 
 
+            $scope.getUserTransactions = function(){
+                clearModels();
+                $scope.upLoading=true;
+                $scope.upTitle='Transacciones';
+                uTransactionsService.getTransactions().then(function(data){
+                    $log.info(data);
+                    $scope.modelTransactions = data;
+                    $scope.upLoading = false;
+                },function(err){
+                    $scope.upLoading = false;
+                });
+            };
 
-
-        init();
-    }]);
+            init();
+        }]);
 
 }(angular.module("KRAngular.uprofile", [
     'ui.router',

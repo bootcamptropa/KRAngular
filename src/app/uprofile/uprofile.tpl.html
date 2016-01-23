@@ -9,9 +9,9 @@
                             <p class="list-group-item-text">
                                 <button class="btn btn-info" ng-click="getSellingProducts()" style="width:95%;text-align:left;"><i class="fa fa-shopping-cart"></i> En venta <span class="badge" style="float:right;">14</span></button>
                                 <p></p>
-                                <button class="btn btn-info" ng-click="getUserTransactions()" style="width:95%;text-align:left;"><i class="fa fa-eur"></i> Vendido <span class="badge" style="float:right;">3</span></button>
+                                <button class="btn btn-info" ng-click="getSoldProducts()" style="width:95%;text-align:left;"><i class="fa fa-eur"></i> Vendido <span class="badge" style="float:right;">3</span></button>
                                 <p></p>
-                                <button class="btn btn-info" style="width:95%;text-align:left;"><i class="fa fa-paw"></i> Transacciones <span class="badge" style="float:right;">7</span></button>
+                                <button class="btn btn-info" ng-click="getUserTransactions()" style="width:95%;text-align:left;"><i class="fa fa-paw"></i> Transacciones <span class="badge" style="float:right;">7</span></button>
                             </p>
                         </div>
                         <div class="list-group-item">
@@ -25,10 +25,21 @@
                 </div>
                 <div class="col-md-8">
                     <div class="list-group">
-                        <a href="#" class="list-group-item active">Perfil de Usuario</a>
+                        <a href="#" class="list-group-item active">{{upTitle}}</a>
                         <div class="list-group-item">
 
-                            <product-list-uprofile model="model"></product-list-uprofile>
+                            <div id="loader" ng-show="upLoading"  class="text-center" style="margin-top:20px;margin-bottom: 20px;">
+                                <div class="cssload-container">
+                                    <div class="cssload-whirlpool"></div>
+                                    <p><span style="margin-top:50px;">Loading</span></p>
+                                </div>
+                            </div>
+
+                            <product-list-uprofile ng-show="modelSelling.length" model="modelSelling"></product-list-uprofile>
+                            <product-list-uprofile ng-show="modelSold.length" model="modelSold"></product-list-uprofile>
+                            <tus-datos ng-show="modelUser.length" model="modelUser"></tus-datos>
+                            <transaction-list ng-show="modelTransactions.length" model="modelTransactions"></transaction-list>
+
 
                         </div>
                     </div>

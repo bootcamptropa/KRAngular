@@ -46,4 +46,38 @@ angular.module('genericDirectives', [])
             }
         };
 
+    })
+    .directive('transactionList',function(){
+        return {
+            restrict: "AE",
+            templateUrl: "directives/templates/transactionList.tpl.html",
+            replace: true,
+            scope: {
+                model: "=",
+                onEdit: '&'
+            },
+            link: function (scope) {
+                scope.gotoAlbum = function (id_album) {
+                    $state.go('root.product', {'id_product': parseInt(id_product)});
+                };
+            }
+        };
+
+    })
+    .directive('tusDatos',function(){
+        return {
+            restrict: "AE",
+            templateUrl: "directives/templates/tusDatos.tpl.html",
+            replace: true,
+            scope: {
+                model: "=",
+                onEdit: '&'
+            },
+            link: function (scope) {
+                scope.gotoAlbum = function (id_album) {
+                    $state.go('root.product', {'id_product': parseInt(id_product)});
+                };
+            }
+        };
+
     });

@@ -9,7 +9,7 @@ angular.module('uTransactionsService', [])
                         if (!extra_route) {
                             extra_route = '';
                         }
-                        return $resource(API_URL + '/transactions/' + extra_route, {}, {
+                        return $resource(API_URL + '/transactions/' + extra_route , {}, {
                             stripTrailingSlashes: false,
                             query: {
                                 timeout: 15000,
@@ -44,9 +44,9 @@ angular.module('uTransactionsService', [])
                         });
                         return def.promise;
                     },
-                    updateTransaction: function(postData){
+                    updateTransaction: function(id_transaction,postData){
                         var def = $q.defer();
-                        this.api().put({}, postData, function (data) {
+                        this.api(id_transaction).put({}, postData, function (data) {
                             $log.warn('Api::data:: ');
                             $log.warn(data);
                             def.resolve(data);
@@ -55,9 +55,12 @@ angular.module('uTransactionsService', [])
                         });
                         return def.promise;
                     },
-                    postTransaction: function (postData) {
+                    postTransaction: function (id_product) {
                         var def = $q.defer();
-                        this.api().save({}, postData, function (data) {
+                        var dataPost = {
+                            product:id_product
+                        };
+                        this.api().save({}, dataPost, function (data) {
                             $log.warn('Api::data:: ');
                             $log.warn(data);
                             def.resolve(data);
