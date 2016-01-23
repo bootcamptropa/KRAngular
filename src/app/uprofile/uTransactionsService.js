@@ -35,9 +35,6 @@ angular.module('uTransactionsService', [])
                         //Service action with promise resolve (then)
                         var def = $q.defer();
                         this.api().get({}, {}, function (data) {
-                            $log.warn('Api::data:: ');
-                            $log.warn(data);
-
                             def.resolve(data);
                         }, function (err) {
                             def.reject(err,def.promise);
@@ -47,8 +44,6 @@ angular.module('uTransactionsService', [])
                     updateTransaction: function(id_transaction,postData){
                         var def = $q.defer();
                         this.api(id_transaction).put({}, postData, function (data) {
-                            $log.warn('Api::data:: ');
-                            $log.warn(data);
                             def.resolve(data);
                         }, function (err) {
                             def.reject(err);
@@ -61,8 +56,6 @@ angular.module('uTransactionsService', [])
                             product:id_product
                         };
                         this.api().save({}, dataPost, function (data) {
-                            $log.warn('Api::data:: ');
-                            $log.warn(data);
                             def.resolve(data);
                         }, function (err) {
                             def.reject(err);

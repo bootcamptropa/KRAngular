@@ -44,16 +44,14 @@ angular.module('cInterceptor', [])
                 var state = $injector.get('$state');
 
                 if(rejection.status===401 && $rootScope.uData.wcookier){
-                    $log.info('Entramos aqui');
                     if ($rootScope.uData.wcookier && Object.keys($rootScope.uData.wcookier).length>0) {
                         var authService = $injector.get('authService');
                         authService.doLoginWithRefreshToken().then(function(data){
-                            $log.debug(data);
                             if(data.access_token && data.refresh_token){
                                 alert('Tu session ha caducado pero ya la hemos recuperado! , intenta de nuevo tu peticion.');
                             }
                         },function(err){
-                            $log.debug(err);
+                            $log.warn(err);
                             alert('Ha ocurrido un error al intentar recuperar tu session');
                             var globalService = $injector.get('globalService');
                             globalService.clearStorage();

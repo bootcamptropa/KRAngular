@@ -46,6 +46,7 @@ angular.module('configService', [])
                     };
                 },
                 getUserInfo:function(){
+                    var _this = this;
                     loginsService.getUserInfo().then(function(dataCustomer){
                         $rootScope.uData.avatar=dataCustomer.avatar_url;
                         $rootScope.uData.email=dataCustomer.email;
@@ -56,7 +57,7 @@ angular.module('configService', [])
                         $rootScope.uData.isLogged=true;
                     },function(errCustomer){
                         $log.warn(errCustomer);
-                        this.clearUserData();
+                        _this.clearUserData();
                     });
                 }
             };

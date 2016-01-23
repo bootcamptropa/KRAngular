@@ -1,15 +1,15 @@
 /* 
  * Api Test Módule
  */
-angular.module('userProductsService', [])
-        .factory('userProductsService', ['$resource', '$q', '$log',
+angular.module('statesService', [])
+        .factory('statesService', ['$resource', '$q', '$log',
             function ($resource, $q, $log) {
                 return {
                     api: function (extra_route) {
                         if (!extra_route) {
                             extra_route = '';
                         }
-                        return $resource(API_URL + '/userProducts/' + extra_route, {}, {
+                        return $resource(API_URL + '/states/' + extra_route, {}, {
                             stripTrailingSlashes: false,
                             query: {
                                 timeout: 15000,
@@ -20,10 +20,6 @@ angular.module('userProductsService', [])
                                 timeout: 15000,
                                 method: 'POST'
                             },
-                            put: {
-                                timeout: 15000,
-                                method: 'PUT'
-                            },
                             get: {
                                 timeout: 15000,
                                 method: 'GET',
@@ -31,17 +27,10 @@ angular.module('userProductsService', [])
                             }
                         });
                     },
-                    getUserProducts: function () {
-                        var queryString = {
-                            offset:1,
-                            limit:3,
-                            state:1,
-                            race:1,
-                            category:1
-                        };
-                        queryString={};
+                    getStates: function () {
+                        //Service action with promise resolve (then)
                         var def = $q.defer();
-                        this.api().get(queryString, {}, function (data) {
+                        this.api().get({}, {}, function (data) {
                             def.resolve(data);
                         }, function (err) {
                             def.reject(err,def.promise);

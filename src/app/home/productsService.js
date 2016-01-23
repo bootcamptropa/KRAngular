@@ -24,6 +24,10 @@ angular.module('productsService', [])
                             timeout: 15000,
                             method: 'GET',
                             isArray: true
+                        },
+                        getOne: {
+                            timeout: 15000,
+                            method: 'GET'
                         }
                     });
                 },
@@ -36,6 +40,15 @@ angular.module('productsService', [])
                     this.api().get({}, {}, function (data) {
                         def.resolve(data);
                     }, function (err) {
+                        def.reject(err);
+                    });
+                    return def.promise;
+                },
+                getOneProduct: function(id){
+                    var def = $q.defer();
+                    this.api(id+'/').getOne({},{},function(data){
+                        def.resolve(data);
+                    },function(err){
                         def.reject(err);
                     });
                     return def.promise;

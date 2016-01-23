@@ -49,7 +49,7 @@
             <li class="dropdown hidden-xs" uib-dropdown>
                 <div class="btn-group" uib-dropdown is-open="status.isopen3" style="margin-top:7px;">
                     <button id="single-button" type="button" class="btn btn-primary btnnavbar" uib-dropdown-toggle ng-disabled="disabled">
-                        {{uData.userName}} <i class="fa fa-user"></i>
+                        Usuarios <i class="fa fa-user"></i>
                     </button>
                     <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
                         <li ui-sref-active="active" role="menuitem">
@@ -62,23 +62,22 @@
                                 <i class="fa fa-sign-out"></i>
                                 Salir</a>
                         </li>
-                        <li class="divider"></li>
                         <li ui-sref-active="active" role="menuitem">
-                            <a ui-sref="root.uprofile" ng-click="navCollapsed = !navCollapsed">
-                                <i class="fa fa-user-md"></i>
-                                Area de usuario</a>
+                            <a ui-sref="root.infinite" ng-click="navCollapsed = !navCollapsed">
+                                <i class="fa fa-shopping-cart"></i>
+                                Mis transacciones</a>
                         </li>
                         <li class="divider"></li>
                         <li ui-sref-active="active" role="menuitem">
-                            <a ui-sref="root.apitest" ng-click="navCollapsed = !navCollapsed">
-                                <i class="fa fa-gears"></i>
-                                PruebasAPI</a>
+                            <a ui-sref="root.myaccount" ng-click="navCollapsed = !navCollapsed">
+                                <i class="fa fa-user-md"></i>
+                                Area de usuario</a>
                         </li>
                     </ul>
                 </div>
             </li>
             <li class="dropdown hidden-lg hidden-md hidden-sm">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" style="margin-left:10px;">
                     <li ui-sref-active="active">
                         <a ui-sref="root.auth" ng-click="navCollapsed = !navCollapsed" style="color:white;">
                             <i class="fa fa-sign-in"></i>
@@ -90,20 +89,15 @@
                             Logout</a>
                     </li>
                     <li ui-sref-active="active">
-                        <a ui-sref="root.buy" ng-click="navCollapsed = !navCollapsed" style="color:white;">
-                            <i class="fa fa-credit-card"></i>
-                            Comprar</a>
-                    </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="root.sell" ng-click="navCollapsed = !navCollapsed" style="color:white;">
-                            <i class="fa fa-money"></i>
-                            Vender</a>
+                        <a ui-sref="root.uprofile" ng-click="navCollapsed = !navCollapsed" style="color:white;">
+                            <i class="fa fa-user"></i>
+                            Area de usuario</a>
                     </li>
                     <!-- <li class="divider"></li> -->
                     <li ui-sref-active="active">
-                        <a ui-sref="root.transactions" ng-click="navCollapsed = !navCollapsed" style="color:white;">
-                            <i class="fa fa-shopping-cart"></i>
-                            Transacciones</a>
+                        <a ui-sref="root.apitest" ng-click="navCollapsed = !navCollapsed" style="color:white;">
+                            <i class="fa fa-gears"></i>
+                            PruebasAPI</a>
                     </li>
                 </ul>
             </li>
