@@ -27,10 +27,10 @@
                     resolve: {
                     },
                     views: {
-                        /*'global': {
+                        'global': {
                             templateUrl: 'global.tpl.html',
                             controller: 'GlobalController'
-                        },*/
+                        },
                         'header': {
                             templateUrl: 'header.tpl.html',
                             controller: 'FrontController'

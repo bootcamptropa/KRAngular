@@ -11,6 +11,28 @@
                             templateUrl: 'uprofile/uprofile.tpl.html'
                         }
                     },
+                    resolve:{
+                        load_data: (['userProductsService', '$q', '$log',
+                            function (userProductsService, $q, $log) {
+                                $log.warn('App::ResolveData::');
+
+                                var def = $q.defer();
+
+                                userProductsService.getUserProducts().then(function(data){
+                                    $log.info(data);
+                                    //var filtered = $filter('filter')(data,{state:'Publicado'});
+                                    def.resolve(data);
+                                    $scope.upLoading = false;
+                                },function(err){
+                                    $log.info(err);
+                                    def.resolve(err);
+                                    $scope.upLoading = false;
+                                });
+
+
+                                return def.promise;
+                            }])
+                    },
                     data: {
                         pageTitle: 'uprofile'
                     }
