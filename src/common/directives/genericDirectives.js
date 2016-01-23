@@ -24,14 +24,14 @@ angular.module('genericDirectives', [])
             link: function (scope) {
 
                 scope.haveAvatar = function() {
-                    //var image = scope.images[0].photo_url;
-                    //$log.debug("Hay imagen de vendedor:", image);
                     return false;
                 };
 
                 scope.haveImage = function() {
-                    //var image = scope.images[0].photo_url;
-                    //$log.debug("Hay imagen de vendedor:", image);
+                    if (scope.model.images.length > 0){
+                        return true;
+                    }
+
                     return false;
                 };
             }
