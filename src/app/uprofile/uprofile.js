@@ -141,7 +141,7 @@
                         var modalInstance = $uibModal.open({
                             animation: true,
                             templateUrl: 'uprofile/modalEditProduct.tpl.html',
-                            controller: 'ModalInstanceCtrl',
+                            controller: 'ModalEditProductCtrl',
                             size: 'lg',
                             resolve: {
                                 data: function(){
@@ -165,22 +165,26 @@
 
     }]);
 
-    app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, data) {
+    app.controller('ModalEditProductCtrl', function ($scope, $uibModalInstance, data,productsService) {
         $scope.data = data;
-
-
+        $scope.actionMsg = '';
 
         $scope.isSterile = function(){
             if(data.product.sterile===true){
-                console.log('es true');
                 return true;
             }else{
-                console.log('es false');
                 return false;
             }
         };
+
         $scope.ok = function () {
-            $uibModalInstance.close($scope.product);
+            $scope.actionMsg = 'Updating selected product...';
+            productsService.saveProduct(data.product.id,data.product).then(function(data){
+                $scope.actionMsg = 'Product Updated!';
+            },function(err){
+                $scope.actionMsg = 'Error updating product:: '+err;
+            });
+            //$uibModalInstance.close($scope.product);
         };
         $scope.cancel = function () {
             $uibModalInstance.dismiss('cancel');
@@ -191,8 +195,8 @@
     app.filter("genders", function() {
         return function(gender) {
             if (gender == "NON") { return "Not specified"; }
-            else if (gender == "MAL") { return "Male"; }
-            else if (gender == "FEM") { return "Female"; }
+            else if (gender == "MAL") { return "Macho"; }
+            else if (gender == "FEM") { return "Hembra"; }
             else { return ""; }
         };
     });

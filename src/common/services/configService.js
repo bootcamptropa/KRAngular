@@ -11,6 +11,7 @@ angular.module('configService', [])
                     $rootScope.showCameraIcon = false;
                     this.clearUserData();
 
+
                     var wtoken = globalService.getStorageItem('wcookie');
                     var wtoken2 = globalService.getStorageItem('wcookier');
 
@@ -19,8 +20,6 @@ angular.module('configService', [])
                         $rootScope.uData.wcookier = wtoken2;
                         this.getUserInfo();
                     }
-
-
 
                 },
                 setUpMessages: function(){

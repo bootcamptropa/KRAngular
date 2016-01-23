@@ -16,15 +16,12 @@
                 .setStorageCookieDomain('')
                 .setNotify(true, true);
 
-
-
-
             //Root view, very important resolve data async before states
             $stateProvider
                 .state('root', {
                     url: '',
                     abstract: true,
-                    resolve: {
+                    resolve:{
                     },
                     views: {
                         'global': {
@@ -86,12 +83,74 @@
     }]);
 
 
-    app.controller('AppController', ['$scope', '$log', function ($scope, $log) {
+    app.controller('AppController', ['$scope', '$log','racesService','$uibModal','globalService',
+        function ($scope, $log,racesService,$uibModal,globalService) {
         $log.info('App:: Starting AppController');
 
+        $scope.addProductModal = function(){
 
+            navigator.geolocation.getCurrentPosition(function(position) {
+                globalService.setStorageItem('latitude',position.coords.latitude);
+                globalService.setStorageItem('longitude',position.coords.longitude);
+            });
+
+            racesService.getRaces().then(function(data){
+                $scope.data = {};
+                $scope.data.product = {};
+                $scope.data.loaddata = {
+                    states : [{id:1,name:'Publicado'},{id:2,name:'Vendido'},{id:3,name:'Cancelado'},{id:4,name:'Suspendido'}],
+                    races : data,
+                    gender : [{id:1,name:'MAL'},{id:2,name:'FEM'},{id:3,name:'NON'}],
+                    sterile: [{id:1,name:'true'},{id:0,name:'false'}],
+                    categories: [{id:1,name:'Perros'},{id:2,name:'Comida'},{id:3,name:'Ropa'},{id:4,name:'Accesorios'},{id:5,name:'Otros'}]
+                };
+
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'modalAddProduct.tpl.html',
+                    controller: 'ModalAddProductCtrl',
+                    size: 'lg',
+                    resolve: {
+                        data: function(){
+                            return $scope.data;
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function (updatedProduct) {
+                    $scope.newProduct = updatedProduct;
+                    console.log($scope.newProduct);
+                }, function () {
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
+
+            },function(err){
+
+            });
+
+
+
+        };
 
     }]);
+
+    app.controller('ModalAddProductCtrl', function ($scope, $uibModalInstance, data,productsService) {
+        $scope.data = data;
+        $scope.actionMsg = '';
+
+        $scope.ok = function () {
+            $scope.actionMsg = 'Updating selected product...';
+            productsService.newProduct(data.product.id,data.product).then(function(data){
+                $scope.actionMsg = 'Product Updated!';
+            },function(err){
+                $scope.actionMsg = 'Error updating product:: '+JSON.stringify(err);
+            });
+            //$uibModalInstance.close($scope.product);
+        };
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+    });
 
     app.controller('FrontController', ['$scope', '$log','$location', function ($scope, $log,$location) {
         $log.info('App:: Starting FrontController');
@@ -112,6 +171,7 @@
 }(angular.module("KRAngular", [
     'ngResource',
     'globalService',
+    'racesService',
     'LocalStorageModule',
     'cInterceptor',
     'configService',
