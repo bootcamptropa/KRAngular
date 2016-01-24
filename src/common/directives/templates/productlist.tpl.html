@@ -6,7 +6,7 @@
         </div>
 
         <div class="photo-price">
-            <p>{{::model.price}} &euro;</p>
+            <p>{{::model.price | currency: "€" : 2}}</p>
         </div>
         <div class="photo-name">
             {{::model.name}}
