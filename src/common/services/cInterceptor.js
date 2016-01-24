@@ -13,11 +13,17 @@ angular.module('cInterceptor', [])
 
                 if(!config.headers['Authorization']) {
                     if ($rootScope.uData.wcookie && Object.keys($rootScope.uData.wcookie).length>0) {
-                        config.headers = {
-                            'Content-type': 'application/json;charset=UTF-8',
-                            'Authorization': 'Bearer ' + $rootScope.uData.wcookie
-                            /*'Authorization': 'Bearer TTRevzbqGiJsaXOHX5twNI8mBwEStT'*/
-                        };
+                        if(config.headers['Content-Type']===undefined){
+                            config.headers = {
+                                'Content-Type': undefined,
+                                'Authorization': 'Bearer ' + $rootScope.uData.wcookie
+                            };
+                        }else{
+                            config.headers = {
+                                'Content-type': 'application/json;charset=UTF-8',
+                                'Authorization': 'Bearer ' + $rootScope.uData.wcookie
+                            };
+                        }
                     }
                 }
 

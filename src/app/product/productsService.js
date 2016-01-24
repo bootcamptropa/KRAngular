@@ -18,7 +18,9 @@ angular.module('productsService', [])
                         },
                         save: {
                             timeout: 15000,
-                            method: 'POST'
+                            method: 'POST',
+                            transformRequest: angular.identity,
+                            headers: { 'Content-Type': undefined }
                         },
                         put:{
                             timeout: 15000,
@@ -85,10 +87,17 @@ angular.module('productsService', [])
                         race:data.raceid,
                         sterile:data.sterile,
                         gender:data.gender,
-                        state:data.stateid
+                        state:data.stateid,
+                        upload_image:data.upload_image
                     };
                     var def = $q.defer();
-                    this.api().save({},postData,function(data){
+
+                    var fd = new FormData();
+                    for(var key in postData){
+                        fd.append(key,data[key]);
+                    }
+
+                    this.api().save({},fd,function(data){
                         def.resolve(data);
                     },function(err){
                         def.reject(err);
