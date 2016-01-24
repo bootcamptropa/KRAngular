@@ -32,9 +32,17 @@ angular.module('productService', [])
                             }
                         });
                     },
-                    getAction: function () {
+                    getAction: function (race,category,lat,lon,words,distance) {
                         var def = $q.defer();
-                        this.api('/products/').get({}, {}, function (data) {
+                        var paramlist = {
+                            race:race,
+                            category:category,
+                            lat:lat,
+                            lon:lon,
+                            words:words,
+                            distance:distance
+                        };
+                        this.api('/products/').get(paramlist, {}, function (data) {
                             $log.warn('Api::data:: ');
                             $log.warn(data);
                             def.resolve(data);

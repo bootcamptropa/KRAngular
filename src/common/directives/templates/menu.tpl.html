@@ -18,29 +18,24 @@
             <div class="btn-group" style="margin-top:7px;">
                 <div class="btn-group" uib-dropdown is-open="status.isopen1">
                     <button id="single-button" type="button" class="btn btn-primary btnnavbar" uib-dropdown-toggle ng-disabled="disabled">
-                        Categoría <span class="caret"></span>
+                        Razas <span class="caret"></span>
                     </button>
-                    <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
-                        <li role="menuitem"><a href="#">Action</a></li>
-                        <li role="menuitem"><a href="#">Another action</a></li>
-                        <li role="menuitem"><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li role="menuitem"><a href="#">Separated link</a></li>
+                    <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button" ng-keypress="onKeyPressSearch($event)">
+                        <li ng-repeat="race in races" role="menuitem"><a href="#">{{ race.name }}</a></li>
                     </ul>
                 </div>
                 <div class="btn-group" uib-dropdown is-open="status.isopen">
-                    <input type="text" class="form-control" placeholder="Busca en Walladog" style="border-radius:0px;">
+                    <input type="text" class="form-control" placeholder="Busca en Walladog" style="border-radius:0px;" ng-keypress="onKeyPressSearch($event)">
                 </div>
                 <div class="btn-group" uib-dropdown is-open="status.isopen2">
                     <button id="single-button" type="button" class="btn btn-primary btnnavbar" uib-dropdown-toggle ng-disabled="disabled">
                         Distancia <span class="caret"></span>
                     </button>
-                    <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
-                        <li role="menuitem"><a href="#">Action</a></li>
-                        <li role="menuitem"><a href="#">Another action</a></li>
-                        <li role="menuitem"><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li role="menuitem"><a href="#">Separated link</a></li>
+                    <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button" ng-keypress="onKeyPressSearch($event)">
+                        <li role="menuitem"><a href="#">5 km</a></li>
+                        <li role="menuitem"><a href="#">10 km</a></li>
+                        <li role="menuitem"><a href="#">15 km</a></li>
+                        <li role="menuitem"><a href="#">20 km</a></li>
                     </ul>
                 </div>
             </div>

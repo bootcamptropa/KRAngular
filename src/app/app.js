@@ -152,11 +152,15 @@
         };
     });
 
-    app.controller('FrontController', ['$scope', '$log','$location', function ($scope, $log,$location) {
+    app.controller('FrontController', ['$scope', '$log','$location','racesService', function ($scope, $log,$location,racesService) {
         $log.info('App:: Starting FrontController');
 
 
         $scope.isCollapsed = true;
+
+        racesService.getRaces().then(function(data) {
+            $scope.races = data;
+        });
 
     }]);
 

@@ -11,6 +11,14 @@
                             templateUrl: 'home/home.tpl.html'
                         }
                     },
+                    resolve:{
+                        load_data: (['globalService','$stateParams', '$q', '$log','$filter', function (globalService, $stateParams, $q, $log,$filter) {
+                            $log.warn('Home::ResolveData::');
+                            $log.info($stateParams);
+                            var geo = globalService.getGeolocalization();
+                            return $q.all([geo]);
+                        }])
+                    },
                     data: {
                         pageTitle: 'Home'
                     }
@@ -18,7 +26,7 @@
         }]);
 
 
-    app.controller('HomeController', ['$scope','$log', 'productService','$state', function ($scope,$log, productService,$state) {
+    app.controller('HomeController', ['$scope','$log', 'productService','$state','globalService','load_data', function ($scope,$log, productService,$state,globalService,load_data) {
 
 
         var init = function () {
@@ -27,7 +35,9 @@
             $scope.model={};
             $scope.model.pageTitle=$state.current.data.pageTitle;
 
-            productService.getAction().then(function(data){
+            var geo = load_data[0];
+
+            productService.getAction(1,1,geo.coords.latitude,geo.coords.longitude).then(function(data){
                 console.log(data);
                 $scope.products = data;
             });
@@ -38,5 +48,6 @@
 
 }(angular.module("KRAngular.home", [
     'ui.router',
-    'productService'
+    'productService',
+    'globalService'
 ])));
