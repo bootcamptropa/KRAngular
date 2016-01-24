@@ -12,9 +12,10 @@
                         }
                     },
                     resolve:{
-                        load_data: (['userProductsService', '$q', '$log','$filter','uTransactionsService','racesService',
-                            function (userProductsService, $q, $log,$filter,uTransactionsService,racesService) {
+                        load_data: (['userProductsService', '$q', '$log','$filter','uTransactionsService','racesService','$stateParams',
+                            function (userProductsService, $q, $log,$filter,uTransactionsService,racesService,$stateParams) {
                                 $log.warn('Uprofile::ResolveData::');
+                                console.log($stateParams);
                                 var pUsers = userProductsService.getUserProducts();
                                 var uProducts2 = uTransactionsService.getTransactions();
                                 var races = racesService.getRaces();

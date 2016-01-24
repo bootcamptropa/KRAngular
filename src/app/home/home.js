@@ -26,7 +26,8 @@
         }]);
 
 
-    app.controller('HomeController', ['$scope','$log', 'productService','$state','globalService','load_data', function ($scope,$log, productService,$state,globalService,load_data) {
+    app.controller('HomeController', ['$scope','$log', 'productService','$state','globalService','load_data','$rootScope',
+        function ($scope,$log, productService,$state,globalService,load_data,$rootScope) {
 
 
         var init = function () {
@@ -41,6 +42,13 @@
                 console.log(data);
                 $scope.products = data;
             });
+
+            // listen for the event in the relevant $scope
+            $rootScope.$on('newSearch', function (event, data) {
+                $log.info('Evento de nueva busqueda'); // 'Data to send'
+                $log.info(data);
+            });
+
         };
 
         init();
