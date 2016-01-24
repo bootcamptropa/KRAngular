@@ -155,6 +155,8 @@
     app.controller('FrontController', ['$scope', '$log','$location','racesService','$rootScope', function ($scope, $log,$location,racesService,$rootScope) {
         $log.info('App:: Starting FrontController');
         $rootScope.search = {};
+        $rootScope.search.race = {};
+        $rootScope.search.distance = {};
 
         $scope.updateSearchParam = function(param,value,value2){
 

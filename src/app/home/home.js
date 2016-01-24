@@ -38,7 +38,7 @@
 
             var geo = load_data[0];
 
-            productService.getAction(1,1,geo.coords.latitude,geo.coords.longitude).then(function(data){
+            productService.getAction(null,null,geo.coords.latitude,geo.coords.longitude,null).then(function(data){
                 console.log(data);
                 $scope.products = data;
             });
@@ -47,6 +47,21 @@
             $rootScope.$on('newSearch', function (event, data) {
                 $log.info('Evento de nueva busqueda'); // 'Data to send'
                 $log.info(data);
+
+                if (!data.search.distance){
+                    data.search.distance = {};
+                    data.search.distance.id = null;
+                }
+
+                if (!data.search.race){
+                    data.search.race = {};
+                    data.search.race.id = null;
+                }
+
+                productService.getAction(data.search.race.id,null,geo.coords.latitude,geo.coords.longitude,data.search.distance.id).then(function(data){
+                    console.log(data);
+                    $scope.products = data;
+                });
             });
 
         };

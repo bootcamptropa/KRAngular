@@ -32,17 +32,26 @@ angular.module('productService', [])
                             }
                         });
                     },
-                    getAction: function (race,category,lat,lon,words,distance) {
+                    getAction: function (race,category,lat,lon,distance) {
                         var def = $q.defer();
-                        var paramlist = {
-                            race:race,
-                            category:category,
-                            /*lat:lat,
-                            lon:lon,*/
-                            words:words,
-                            distance:distance
-                        };
-                        this.api('/products/').get(paramlist, {}, function (data) {
+                        var paramList = {};
+                        if (race){
+                            paramList.race = race;
+                        }
+                        if (category){
+                            paramList.category = category;
+                        }
+                        if (lat){
+                            paramList.lat = lat;
+                        }
+                        if (lon){
+                            paramList.lon = lon;
+                        }
+                        if (distance){
+                            paramList.distance = distance;
+                        }
+
+                        this.api('/products/').get(paramList, {}, function (data) {
                             $log.warn('Api::data:: ');
                             $log.warn(data);
                             def.resolve(data);
