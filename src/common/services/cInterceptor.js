@@ -63,8 +63,8 @@ angular.module('cInterceptor', [])
                             globalService.clearStorage();
                         });
                     }else{
-                        alert('Tu session ha caducado, identificate de nuevo.');
-                        state.go('root.auth');
+                        alert('No estas identificado, disfruta de mas servicios si te identificas.');
+                        //state.go('root.auth');
                     }
                 }else{
                     $log.warn('Error en la peticion interceptado');
