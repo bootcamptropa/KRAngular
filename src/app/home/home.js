@@ -12,9 +12,9 @@
                         }
                     },
                     resolve:{
-                        load_data: (['globalService','$stateParams', '$q', '$log','$filter', function (globalService, $stateParams, $q, $log,$filter) {
+                        load_data: (['globalService','$stateParams', '$q', '$log','$filter',
+                            function (globalService, $stateParams, $q, $log,$filter) {
                             $log.warn('Home::ResolveData::');
-                            $log.info($stateParams);
                             var geo = globalService.getGeolocalization();
                             return $q.all([geo]);
                         }])
@@ -29,17 +29,17 @@
     app.controller('HomeController', ['$scope','$log', 'productService','$state','globalService','load_data','$rootScope',
         function ($scope,$log, productService,$state,globalService,load_data,$rootScope) {
 
-
         var init = function () {
             $log.info('App:: Starting HomeController');
+            $rootScope.domReady=false;
 
             $scope.model={};
             $scope.model.pageTitle=$state.current.data.pageTitle;
 
             var geo = load_data[0];
 
-            productService.getAction(null,null,geo.coords.latitude,geo.coords.longitude,null).then(function(data){
-                console.log(data);
+            productService.getAction(null,null,null,null,null).then(function(data){
+                $rootScope.domReady=true;
                 $scope.products = data;
             });
 
@@ -60,6 +60,7 @@
 
                 productService.getAction(data.search.race.id,null,geo.coords.latitude,geo.coords.longitude,data.search.distance.id).then(function(data){
                     console.log(data);
+                    $rootScope.domReady=true;
                     $scope.products = data;
                 });
             });

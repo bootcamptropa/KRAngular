@@ -26,6 +26,11 @@ angular.module('productService', [])
                                 method: 'GET',
                                 isArray: true
                             },
+                            getObject: {
+                                timeout: 15000,
+                                method: 'GET',
+                                isArray:false
+                            },
                             put: {
                                 timeout: 15000,
                                 method: 'PUT'

@@ -62,6 +62,7 @@
 
         $rootScope.$on('$stateChangeError',
             function(event, toState, toParams, fromState, fromParams, error){
+                $rootScope.domReady=false;
                 $log.warn('Error changing state:');
                 $log.warn(fromState);
                 $log.warn(toState);

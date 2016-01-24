@@ -11,6 +11,21 @@
                             templateUrl: 'product/product.tpl.html'
                         }
                     },
+                    resolve:{
+                        productData: (['productService', '$q', '$log','$state','$stateParams',
+                            function (productService, $q, $log,$state,$stateParams) {
+                                console.log($stateParams);
+                                $log.info('Product::ResolveData::');
+                                var def = $q.defer();
+                                productService.api('/products/'+$stateParams.productId+'/').getObject({}, {}, function (data) {
+                                    def.resolve(data);
+                                }, function (err) {
+                                    def.reject(err);
+                                });
+                                return def.promise;
+
+                            }])
+                    },
                     data: {
                         pageTitle: 'Product'
                     }
@@ -30,7 +45,7 @@
                 });
         }]);
 
-    app.controller('ProductController', ['$scope', '$log', '$state','NgMap','productService', function ($scope, $log, $state,NgMap,productService) {
+    app.controller('ProductController', ['$scope', '$log', '$state','NgMap','productService','productData', function ($scope, $log, $state,NgMap,productService,productData) {
         $log.info('App:: Starting CustomerController');
 
 
@@ -50,8 +65,6 @@
                 $log.debug("idProduct: " + prodId);
             }
 
-            var prom = productService.getProduct(prodId);
-
             var slides = $scope.slides = [];
             $scope.addSlide = function(url,imgName) {
                 slides.push({
@@ -62,86 +75,21 @@
             $scope.addSlide('../assets/images/placeholder.png','');
 
             NgMap.getMap().then(function(map) {
-                console.log(map.getCenter());
-                console.log('markers', map.markers);
-                console.log('shapes', map.shapes);
+                /*                console.log(map.getCenter());
+                 console.log('markers', map.markers);
+                 console.log('shapes', map.shapes);*/
             });
 
-            prom.then(function(data){
-                $scope.product = data;
-                $log.info("product data: ", data);
-                $log.info("$scope.product.name ",$scope.product);
-                var imagesArr = $scope.product.images;
-                for(var i=0;i<imagesArr.length;i++) {
-                    if (i === 0) {
-                        $scope.slides[i].image = imagesArr[i].photo_url;
-                        $scope.slides[i].text = $scope.name;
-                    } else {
-                        $scope.addSlide(imagesArr[i].photo_url, $scope.name);
-                    }
+            $scope.product = productData;
+            var imagesArr = $scope.product.images;
+            for(var i=0;i<imagesArr.length;i++) {
+                if (i === 0) {
+                    $scope.slides[i].image = imagesArr[i].photo_url;
+                    $scope.slides[i].text = $scope.name;
+                } else {
+                    $scope.addSlide(imagesArr[i].photo_url, $scope.name);
                 }
-            },function(err){
-                $log.error(err);
-                $log.info("geting dummy data");
-                /*$scope.product = {
-                 "id": 1,
-                 "name": "Venta",
-                 "race": "race test",
-                 "seller": {
-                 avatar_url: "http://lorempixel.com/50/50/people",
-                 first_name: "Dummy Name",
-                 last_name: "Dummier Lastname",
-                 username: "Dummz"
-                 },
-                 "gender": "NON",
-                 "sterile": false,
-                 "description": "Y, viéndole don Quijote de aquella manera, con muestras de tanta tristeza, le dijo: Sábete, Sancho, que no es un hombre más que otro si no hace más que otro. Todas estas borrascas que nos suceden son señales de que presto ha de serenar el tiempo y han de sucedernos bien las cosas; porque no es posible que el mal ni el bien sean durables, y de aquí se sigue que, habiendo durado mucho el mal, el bien está ya cerca. Así que, no debes congojarte por las desgracias que a mí me suceden, pues a ti no te cabe parte dellas.Y, viéndole don Quijote de aquella manera, con muestras de tanta tristeza, le dijo: Sábete, Sancho, que no es un hombre más que otro si no hace más que otro. Todas estas borrascas que nos suceden son señales de que presto ha de serenar el tiempo y han de sucedernos bien las cosas; porque no es posible que el mal ni el bien sean durables, y de aquí se sigue que, habiendo durado mucho el mal, el bien está ya cerca. Así que, no debes congojarte por las desgracias que a mí me suceden, pues a ti no",
-                 "state": "dummy state",
-                 "price": 12.5,
-                 "category": "Dummy category",
-                 "active": true,
-                 "longitude": -63.1802951,
-                 "latitude": -17.7835109,
-                 "created_at": "2016-01-04T15:02:42Z",
-                 "images": [
-                 {
-                 "id": 23,
-                 "name": "897b5966-012a-4797-b8b5-e790c5",
-                 "photo_url": "https://s3.amazonaws.com/walladog/897b5966-012a-4797-b8b5-e790c57d4f08.jpeg",
-                 "photo_thumbnail_url": "https://s3.amazonaws.com/walladog/897b5966-012a-4797-b8b5-e790c57d4f08thumbnail.jpeg",
-                 "created_at": "2016-01-14T16:07:15Z",
-                 "updated_at": "2016-01-17T19:00:32Z"
-                 },
-                 {
-                 "id": 24,
-                 "name": "b1778e1f-91b3-4553-9552-9e9451",
-                 "photo_url": "https://s3.amazonaws.com/walladog/b1778e1f-91b3-4553-9552-9e9451645356.jpeg",
-                 "photo_thumbnail_url": "https://s3.amazonaws.com/walladog/b1778e1f-91b3-4553-9552-9e9451645356thumbnail.jpeg",
-                 "created_at": "2016-01-14T16:08:40Z",
-                 "updated_at": "2016-01-17T19:00:21Z"
-                 },
-                 {
-                 "id": 25,
-                 "name": "4ad34df8-7d1a-4503-b499-e1bd3e",
-                 "photo_url": "https://s3.amazonaws.com/walladog/4ad34df8-7d1a-4503-b499-e1bd3ecf4039.jpeg",
-                 "photo_thumbnail_url": "https://s3.amazonaws.com/walladog/4ad34df8-7d1a-4503-b499-e1bd3ecf4039thumbnail.jpeg",
-                 "created_at": "2016-01-14T16:08:47Z",
-                 "updated_at": "2016-01-17T19:00:12Z"
-                 }
-                 ]
-                 };
-
-                 /*var imagesArr = $scope.product.images;
-                 for(var i=0;i<imagesArr.length;i++) {
-                 if(i===0){
-                 $scope.slides[i].image = imagesArr[i].photo_url;
-                 $scope.slides[i].text  = $scope.name;
-                 } else {
-                 $scope.addSlide(imagesArr[i].photo_url,$scope.name);
-                 }
-                 }*/
-            });
-
+            }
         };
 
         init();
