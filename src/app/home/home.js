@@ -23,6 +23,7 @@
 
         var init = function () {
             $log.info('App:: Starting HomeController');
+
             $scope.model={};
             $scope.model.pageTitle=$state.current.data.pageTitle;
 

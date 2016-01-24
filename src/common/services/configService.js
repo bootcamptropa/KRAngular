@@ -11,6 +11,7 @@ angular.module('configService', [])
                     $rootScope.showCameraIcon = false;
                     this.clearUserData();
 
+
                     var wtoken = globalService.getStorageItem('wcookie');
                     var wtoken2 = globalService.getStorageItem('wcookier');
 
@@ -19,8 +20,6 @@ angular.module('configService', [])
                         $rootScope.uData.wcookier = wtoken2;
                         this.getUserInfo();
                     }
-
-
 
                 },
                 setUpMessages: function(){
@@ -46,6 +45,7 @@ angular.module('configService', [])
                     };
                 },
                 getUserInfo:function(){
+                    var _this = this;
                     loginsService.getUserInfo().then(function(dataCustomer){
                         $rootScope.uData.avatar=dataCustomer.avatar_url;
                         $rootScope.uData.email=dataCustomer.email;
@@ -56,7 +56,7 @@ angular.module('configService', [])
                         $rootScope.uData.isLogged=true;
                     },function(errCustomer){
                         $log.warn(errCustomer);
-                        this.clearUserData();
+                        _this.clearUserData();
                     });
                 }
             };

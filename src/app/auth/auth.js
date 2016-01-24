@@ -99,6 +99,8 @@
                             $rootScope.uData.lastName=dataCustomer.last_name;
                             $rootScope.uData.userId=dataCustomer.id;
                             $rootScope.uData.userName=dataCustomer.username;
+                            $rootScope.uData.isLogged=true;
+                            $state.go('root.uprofile');
                         },function(errCustomer){
                             $log.warn(errCustomer);
                             $scope.err2.visible=true;

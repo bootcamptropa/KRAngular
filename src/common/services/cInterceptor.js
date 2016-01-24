@@ -13,11 +13,17 @@ angular.module('cInterceptor', [])
 
                 if(!config.headers['Authorization']) {
                     if ($rootScope.uData.wcookie && Object.keys($rootScope.uData.wcookie).length>0) {
-                        config.headers = {
-                            'Content-type': 'application/json;charset=UTF-8',
-                            'Authorization': 'Bearer ' + $rootScope.uData.wcookie
-                            /*'Authorization': 'Bearer TTRevzbqGiJsaXOHX5twNI8mBwEStT'*/
-                        };
+                        if(config.headers['Content-Type']===undefined){
+                            config.headers = {
+                                'Content-Type': undefined,
+                                'Authorization': 'Bearer ' + $rootScope.uData.wcookie
+                            };
+                        }else{
+                            config.headers = {
+                                'Content-type': 'application/json;charset=UTF-8',
+                                'Authorization': 'Bearer ' + $rootScope.uData.wcookie
+                            };
+                        }
                     }
                 }
 
@@ -44,16 +50,14 @@ angular.module('cInterceptor', [])
                 var state = $injector.get('$state');
 
                 if(rejection.status===401 && $rootScope.uData.wcookier){
-                    $log.info('Entramos aqui');
                     if ($rootScope.uData.wcookier && Object.keys($rootScope.uData.wcookier).length>0) {
                         var authService = $injector.get('authService');
                         authService.doLoginWithRefreshToken().then(function(data){
-                            $log.debug(data);
                             if(data.access_token && data.refresh_token){
                                 alert('Tu session ha caducado pero ya la hemos recuperado! , intenta de nuevo tu peticion.');
                             }
                         },function(err){
-                            $log.debug(err);
+                            $log.warn(err);
                             alert('Ha ocurrido un error al intentar recuperar tu session');
                             var globalService = $injector.get('globalService');
                             globalService.clearStorage();

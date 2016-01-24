@@ -7,11 +7,11 @@
                         <a href="#" class="list-group-item active">Elige una opción</a>
                         <div class="list-group-item">
                             <p class="list-group-item-text">
-                                <button class="btn btn-info" ng-click="getSellingProducts()" style="width:95%;text-align:left;"><i class="fa fa-shopping-cart"></i> En venta <span class="badge" style="float:right;">14</span></button>
+                                <button class="btn btn-info" ng-click="getSellingProducts()" style="width:95%;text-align:left;"><i class="fa fa-shopping-cart"></i> En venta <span class="badge" style="float:right;">{{model.bselling}}</span></button>
                                 <p></p>
-                                <button class="btn btn-info" ng-click="getSoldProducts()" style="width:95%;text-align:left;"><i class="fa fa-eur"></i> Vendido <span class="badge" style="float:right;">3</span></button>
+                                <button class="btn btn-info" ng-click="getSoldProducts()" style="width:95%;text-align:left;"><i class="fa fa-eur"></i> Vendido <span class="badge" style="float:right;">{{model.bsold}}</span></button>
                                 <p></p>
-                                <button class="btn btn-info" ng-click="getUserTransactions()" style="width:95%;text-align:left;"><i class="fa fa-paw"></i> Transacciones <span class="badge" style="float:right;">7</span></button>
+                                <button class="btn btn-info" ng-click="getUserTransactions()" style="width:95%;text-align:left;"><i class="fa fa-paw"></i> Transacciones <span class="badge" style="float:right;">{{model.btrans}}</span></button>
                             </p>
                         </div>
                         <div class="list-group-item">
@@ -35,8 +35,8 @@
                                 </div>
                             </div>
 
-                            <product-list-uprofile ng-show="modelSelling.length" model="modelSelling"></product-list-uprofile>
-                            <product-list-uprofile ng-show="modelSold.length" model="modelSold"></product-list-uprofile>
+                            <product-list-uprofile ng-show="modelSelling.length" model="modelSelling" loaddata="loaddata"></product-list-uprofile>
+                            <product-list-uprofile ng-show="modelSold.length" model="modelSold" loaddata="loaddata"></product-list-uprofile>
                             <tus-datos ng-show="modelUser.length" model="modelUser"></tus-datos>
                             <transaction-list ng-show="modelTransactions.length" model="modelTransactions"></transaction-list>
 

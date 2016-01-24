@@ -1,0 +1,144 @@
+<div class="modal-header">
+    <h3 class="modal-title">Editar Producto</h3>
+</div>
+<div class="modal-body">
+
+    <form role="form">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="wdname">
+                            Nombre
+                        </label>
+                        <input type="text" ng-model="data.product.name" class="form-control" id="wdname" />
+                    </div>
+                    <div class="form-group">
+                        <label for="wdtextarea">
+                            Descripción
+                        </label>
+                        <textarea rows="3" cols="4" ng-model="data.product.description" class="form-control" id="wdtextarea">{{data.product.description}}</textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6">
+
+                            <div class="form-group">
+                                <label for="wdraza">
+                                    Raza : <span class="label label-default">{{data.product.race}}</span>
+                                </label>
+                                <select ng-model="data.product.raceid" class="form-control form-inline" id="wdraza">
+                                    <option ng-repeat="race in data.loaddata.races" value="{{race.id}}">{{race.name}}</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+                        <div class="col-xs-6">
+
+                            <div class="form-group">
+                                <label for="wdstate">
+                                    Estado : <span class="label label-default">{{data.product.state}}</span>
+                                </label>
+                                <select ng-model="data.product.stateid" class="form-control" id="wdstate">
+                                    <option ng-repeat="state in data.loaddata.states" value="{{state.id}}">{{state.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6">
+
+                            <div class="form-group">
+                                <label for="wdprice">
+                                    Precio
+                                </label>
+                                <input type="text" ng-model="data.product.price" class="form-control" id="wdprice" />
+                            </div>
+
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label for="wdcategories">
+                                    Categoria : <span class="label label-default">{{data.product.category}}</span>
+                                </label>
+                                <select ng-model="data.product.categoryid" class="form-control" id="wdcategories">
+                                    <option ng-repeat="cat in data.loaddata.categories" value="{{cat.id}}">{{cat.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-xs-6">
+
+                            <div class="form-group">
+                                <label for="wdsterile">
+                                    Esterilizado: <span class="label label-default">{{data.product.sterile|boolVal}}</span>
+                                </label>
+                                <select ng-model="data.product.sterile" class="form-control" id="wdsterile">
+                                    <option value="true" ng-selected="isSterile();">Si</option>
+                                    <option value="false" ng-selected="!isSterile();">No</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label for="wdgender">
+                                    Genero : <span class="label label-default">{{data.product.gender|genders}}</span>
+                                </label>
+                                <select ng-model="data.product.gender" class="form-control" id="wdgender">
+                                    <option ng-repeat="gen in data.loaddata.gender" value="{{gen.name}}">{{gen.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Images">
+                            Seleccionas tus fotos:
+                        </label>
+                        <div class="row" style="margin-top:3px;">
+                            <div class="col-xs-2"><img src="/assets/logos/walladogt.png" class="img-responsive" width="35" height="35"></div>
+                            <div class="col-xs-10"><input type="file" id="Images1" name="image1" style="margin-top:2px;" /></div>
+                        </div>
+                        <div class="row" style="margin-top:3px;">
+                            <div class="col-xs-2"><img src="/assets/logos/walladogt.png" class="img-responsive" width="35" height="35"></div>
+                            <div class="col-xs-10"><input type="file" id="Images2" name="image2" style="margin-top:2px;" /></div>
+                        </div>
+                        <div class="row" style="margin-top:3px;">
+                            <div class="col-xs-2"><img src="/assets/logos/walladogt.png" class="img-responsive" width="35" height="35"></div>
+                            <div class="col-xs-10"><input type="file" id="Images3" name="image3" style="margin-top:2px;" /></div>
+                        </div>
+                        <div class="row" style="margin-top:3px;">
+                            <div class="col-xs-2"><img src="/assets/logos/walladogt.png" class="img-responsive" width="35" height="35"></div>
+                            <div class="col-xs-10"><input type="file" id="Images4" name="image4" style="margin-top:2px;" /></div>
+                        </div>
+                        <div class="row" style="margin-top:3px;">
+                            <div class="col-xs-2"><img src="/assets/logos/walladogt.png" class="img-responsive" width="35" height="35"></div>
+                            <div class="col-xs-10"><input type="file" id="Images5" name="image5" style="margin-top:2px;" /></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+</div>
+<div class="modal-footer">
+    <div class="row">
+        <div class="col-xs-6">
+            {{actionMsg}}
+        </div>
+        <div class="col-xs-6">
+            <button class="btn btn-success" type="button" ng-click="ok()"><i class="fa fa-save"></i> Guardar</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()"><i class="fa fa-ban"></i> Cancel</button>
+        </div>
+    </div>
+</div>
