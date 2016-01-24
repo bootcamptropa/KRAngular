@@ -57,8 +57,6 @@ angular.module('productService', [])
                         }
 
                         this.api('/products/').get(paramList, {}, function (data) {
-                            $log.warn('Api::data:: ');
-                            $log.warn(data);
                             def.resolve(data);
                         }, function (err) {
                             def.reject(err);
@@ -68,8 +66,6 @@ angular.module('productService', [])
                     getProduct: function (productId) {
                         var def = $q.defer();
                         this.api('/products/'+productId+"/").get({}, {}, function (data) {
-                            $log.warn('Api::data:: ');
-                            $log.warn(data);
                             def.resolve(data);
                         }, function (err) {
                             def.reject(err);
@@ -79,8 +75,6 @@ angular.module('productService', [])
                     getCustomer: function () {
                         var def = $q.defer();
                         this.api().get({}, {}, function (data) {
-                            $log.warn('Api::data:: ');
-                            $log.warn(data);
                             def.resolve(data);
                         }, function (err) {
                             def.reject(err);

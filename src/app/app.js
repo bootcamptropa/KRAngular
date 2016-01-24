@@ -135,22 +135,53 @@
 
     }]);
 
-    app.controller('ModalAddProductCtrl', function ($scope, $uibModalInstance, data,productsService) {
+    app.directive('fileModel', ['$parse', function ($parse) {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+                var model = $parse(attrs.fileModel);
+                var modelSetter = model.assign;
+
+                element.bind('change', function(){
+                    scope.$apply(function(){
+                        modelSetter(scope, element[0].files[0]);
+                    });
+                });
+            }
+        };
+    }]);
+
+    app.controller('ModalAddProductCtrl', function ($scope, $uibModalInstance, data,productsService,globalService) {
         $scope.data = data;
         $scope.actionMsg = '';
+        $scope.myFile=null;
+        var geoData = {};
+
+        var init = function(){
+            globalService.getGeolocalization().then(function(data){
+                geoData.latitude=data.coords.latitude;
+                geoData.longitude=data.coords.longitude;
+            },function(err){
+                console.log(data);
+            });
+        };
+
 
         $scope.ok = function () {
-            $scope.actionMsg = 'Updating selected product...';
-            productsService.newProduct(data.product).then(function(data){
+            $scope.actionMsg = 'Creando producto...';
+            var file = $scope.myFile;
+            productsService.newProduct(data.product,file,geoData).then(function(data){
                 $scope.actionMsg = 'Product Updated!';
             },function(err){
-                $scope.actionMsg = 'Error updating product:: '+JSON.stringify(err);
+                $scope.actionMsg = 'Error al Crear Producto:: '+JSON.stringify(err);
             });
             //$uibModalInstance.close($scope.product);
         };
         $scope.cancel = function () {
             $uibModalInstance.dismiss('cancel');
         };
+
+        init();
     });
 
     app.controller('FrontController', ['$scope', '$log','$location','racesService','$rootScope', function ($scope, $log,$location,racesService,$rootScope) {

@@ -70,6 +70,7 @@ angular.module('productsService', [])
                         gender:data.gender,
                         state:data.stateid
                     };
+
                     var def = $q.defer();
                     this.api(id+'/').put({},postData,function(data){
                         def.resolve(data);
@@ -78,8 +79,7 @@ angular.module('productsService', [])
                     });
                     return def.promise;
                 },
-                newProduct: function(data){
-                    console.log(data);
+                newProduct: function(data,files,geodata){
                     var postData = {
                         name:data.name,
                         description:data.description,
@@ -88,14 +88,21 @@ angular.module('productsService', [])
                         race:data.raceid,
                         sterile:data.sterile,
                         gender:data.gender,
-                        state:data.stateid,
-                        upload_image:data.upload_image
+                        state:data.stateid
                     };
+                    console.log(geodata);
                     var def = $q.defer();
 
                     var fd = new FormData();
                     for(var key in postData){
                         fd.append(key,data[key]);
+                    }
+                    fd.append('upload_image',files);
+                    if(geodata.latitude && geodata.longitude){
+                        console.log('adding geo');
+                        console.log(geodata);
+                        fd.append('longitude',parseFloat(geodata.longitude));
+                        fd.append('latitude',parseFloat(geodata.latitude));
                     }
 
                     this.api().save({},fd,function(data){

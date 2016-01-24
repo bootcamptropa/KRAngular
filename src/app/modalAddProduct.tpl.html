@@ -27,7 +27,7 @@
                                 <label for="wdraza">
                                     Raza : <span class="label label-default">{{data.product.race}}</span>
                                 </label>
-                                <select ng-model="data.product.raceid" class="form-control form-inline" id="wdraza">
+                                <select ng-model="data.product.race" class="form-control form-inline" id="wdraza">
                                     <option ng-repeat="race in data.loaddata.races" value="{{race.id}}">{{race.name}}</option>
                                 </select>
 
@@ -40,7 +40,7 @@
                                 <label for="wdstate">
                                     Estado : <span class="label label-default">{{data.product.state}}</span>
                                 </label>
-                                <select ng-model="data.product.stateid" class="form-control" id="wdstate">
+                                <select ng-model="data.product.state" class="form-control" id="wdstate">
                                     <option ng-repeat="state in data.loaddata.states" value="{{state.id}}">{{state.name}}</option>
                                 </select>
                             </div>
@@ -63,7 +63,7 @@
                                 <label for="wdcategories">
                                     Categoria : <span class="label label-default">{{data.product.categoryid}}</span>
                                 </label>
-                                <select ng-model="data.product.categoryid" class="form-control" id="wdcategories">
+                                <select ng-model="data.product.category" class="form-control" id="wdcategories">
                                     <option ng-repeat="cat in data.loaddata.categories" value="{{cat.id}}">{{cat.name}}</option>
                                 </select>
                             </div>
@@ -103,23 +103,11 @@
                         </label>
                         <div class="row" style="margin-top:3px;">
                             <div class="col-xs-2"><img src="/assets/logos/walladogt.png" class="img-responsive" width="35" height="35"></div>
-                            <div class="col-xs-10"><input type="file" ng-model="data.product.upload_image" id="Images1" name="upload_image" style="margin-top:2px;" /></div>
-                        </div>
-                        <div class="row" style="margin-top:3px;">
-                            <div class="col-xs-2"><img src="/assets/logos/walladogt.png" class="img-responsive" width="35" height="35"></div>
-                            <div class="col-xs-10"><input type="file" id="Images2" name="image2" style="margin-top:2px;" /></div>
-                        </div>
-                        <div class="row" style="margin-top:3px;">
-                            <div class="col-xs-2"><img src="/assets/logos/walladogt.png" class="img-responsive" width="35" height="35"></div>
-                            <div class="col-xs-10"><input type="file" id="Images3" name="image3" style="margin-top:2px;" /></div>
-                        </div>
-                        <div class="row" style="margin-top:3px;">
-                            <div class="col-xs-2"><img src="/assets/logos/walladogt.png" class="img-responsive" width="35" height="35"></div>
-                            <div class="col-xs-10"><input type="file" id="Images4" name="image4" style="margin-top:2px;" /></div>
-                        </div>
-                        <div class="row" style="margin-top:3px;">
-                            <div class="col-xs-2"><img src="/assets/logos/walladogt.png" class="img-responsive" width="35" height="35"></div>
-                            <div class="col-xs-10"><input type="file" id="Images5" name="image5" style="margin-top:2px;" /></div>
+                            <div class="col-xs-10">
+                                <!--<input type="file" multiple ng-model="data.uploadFiles" file-model="data.uploadFiles" id="uploadFiles" style="margin-top:2px;" />-->
+                                <input type="file" file-model="myFile" fileModel="myFile"/>
+                                <pre>{{myFile}}</pre>
+                            </div>
                         </div>
                     </div>
                 </div>
