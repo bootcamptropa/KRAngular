@@ -78,7 +78,8 @@ angular.module('productsService', [])
                     });
                     return def.promise;
                 },
-                newProduct: function(id,data){
+                newProduct: function(data){
+                    console.log(data);
                     var postData = {
                         name:data.name,
                         description:data.description,

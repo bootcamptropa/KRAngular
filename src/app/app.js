@@ -140,7 +140,7 @@
 
         $scope.ok = function () {
             $scope.actionMsg = 'Updating selected product...';
-            productsService.newProduct(data.product.id,data.product).then(function(data){
+            productsService.newProduct(data.product).then(function(data){
                 $scope.actionMsg = 'Product Updated!';
             },function(err){
                 $scope.actionMsg = 'Error updating product:: '+JSON.stringify(err);

@@ -61,7 +61,7 @@
                         <div class="col-xs-6">
                             <div class="form-group">
                                 <label for="wdcategories">
-                                    Categoria : <span class="label label-default">{{data.product.category}}</span>
+                                    Categoria : <span class="label label-default">{{data.product.categoryid}}</span>
                                 </label>
                                 <select ng-model="data.product.categoryid" class="form-control" id="wdcategories">
                                     <option ng-repeat="cat in data.loaddata.categories" value="{{cat.id}}">{{cat.name}}</option>
