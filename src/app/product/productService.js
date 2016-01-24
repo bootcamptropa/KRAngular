@@ -37,8 +37,8 @@ angular.module('productService', [])
                         var paramlist = {
                             race:race,
                             category:category,
-                            lat:lat,
-                            lon:lon,
+                            /*lat:lat,
+                            lon:lon,*/
                             words:words,
                             distance:distance
                         };

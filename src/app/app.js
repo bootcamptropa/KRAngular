@@ -152,9 +152,31 @@
         };
     });
 
-    app.controller('FrontController', ['$scope', '$log','$location','racesService', function ($scope, $log,$location,racesService) {
+    app.controller('FrontController', ['$scope', '$log','$location','racesService','$rootScope', function ($scope, $log,$location,racesService,$rootScope) {
         $log.info('App:: Starting FrontController');
+        $rootScope.search = {};
 
+        $scope.updateSearchParam = function(param,value,value2){
+
+            if(param==='race'){
+                $rootScope.search.race = {};
+                $rootScope.search.race.id=value;
+                $rootScope.search.race.name=value2;
+            }
+            if(param==='distance'){
+                $rootScope.search.distance = {};
+                $rootScope.search.distance.id=value;
+                $rootScope.search.distance.name=value2;
+            }
+            $log.info('Paramtros de Busqueda:');
+            $log.info($rootScope.search);
+        };
+
+        $scope.submitSearch = function(){
+            $rootScope.$broadcast('newSearch', {
+                search: $rootScope.search
+            });
+        };
 
         $scope.isCollapsed = true;
 

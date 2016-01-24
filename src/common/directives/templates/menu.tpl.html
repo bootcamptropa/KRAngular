@@ -18,25 +18,30 @@
             <div class="btn-group" style="margin-top:7px;">
                 <div class="btn-group" uib-dropdown is-open="status.isopen1">
                     <button id="single-button" type="button" class="btn btn-primary btnnavbar" uib-dropdown-toggle ng-disabled="disabled">
-                        Razas <span class="caret"></span>
+                        {{search.race.name||'Razas'}} <span class="caret"></span>
                     </button>
-                    <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button" ng-keypress="onKeyPressSearch($event)">
-                        <li ng-repeat="race in races" role="menuitem"><a href="#">{{ race.name }}</a></li>
+                    <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
+                        <li ng-repeat="race in races" role="menuitem"><span style="cursor:pointer;" ng-click="updateSearchParam('race',race.id,race.name)">{{ race.name }}</span></li>
                     </ul>
                 </div>
-                <div class="btn-group" uib-dropdown is-open="status.isopen">
+                <!--<div class="btn-group" uib-dropdown is-open="status.isopen">
                     <input type="text" class="form-control" placeholder="Busca en Walladog" style="border-radius:0px;" ng-keypress="onKeyPressSearch($event)">
-                </div>
+                </div>-->
                 <div class="btn-group" uib-dropdown is-open="status.isopen2">
                     <button id="single-button" type="button" class="btn btn-primary btnnavbar" uib-dropdown-toggle ng-disabled="disabled">
-                        Distancia <span class="caret"></span>
+                        {{search.distance.name||'Distancia'}} <span class="caret"></span>
                     </button>
-                    <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button" ng-keypress="onKeyPressSearch($event)">
-                        <li role="menuitem"><a href="#">5 km</a></li>
-                        <li role="menuitem"><a href="#">10 km</a></li>
-                        <li role="menuitem"><a href="#">15 km</a></li>
-                        <li role="menuitem"><a href="#">20 km</a></li>
+                    <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
+                        <li role="menuitem" ng-click="updateSearchParam('distance',5,'5Km')"><span style="cursor:pointer">5 km</span></li>
+                        <li role="menuitem" ng-click="updateSearchParam('distance',10,'10Km')"><span style="cursor:pointer">10 km</span></li>
+                        <li role="menuitem" ng-click="updateSearchParam('distance',15,'15Km')"><span style="cursor:pointer">15 km</span></li>
+                        <li role="menuitem" ng-click="updateSearchParam('distance',20,'20Km')"><span style="cursor:pointer">20 km</span></li>
                     </ul>
+                </div>
+                <div class="btn-group">
+                    <button id="single-button-search" type="button" class="btn btn-success btnnavbarsuccess" ng-click="submitSearch();">
+                        Buscar <i class="fa fa-search"></i>
+                    </button>
                 </div>
             </div>
         </ul>
