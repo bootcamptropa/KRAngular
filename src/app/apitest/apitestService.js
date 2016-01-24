@@ -9,7 +9,7 @@ angular.module('apitestService', [])
                         if (!extra_route) {
                             extra_route = '';
                         }
-                        return $resource(API_URL + '/products/' + extra_route, {}, {
+                        return $resource(API_URL + '/transactions/' + extra_route, {}, {
                             stripTrailingSlashes: false,
                             query: {
                                 timeout: 15000,
@@ -54,6 +54,31 @@ angular.module('apitestService', [])
                     },
                     testFunction: function () {
                         alert('testFunction');
+                    },
+                    postTransaction: function(postData){
+                        var def = $q.defer();
+                        var dataPost = {
+                            product:postData
+                        };
+                        this.api().save({}, dataPost, function (data) {
+                            $log.warn('Api::data:: ');
+                            $log.warn(data);
+                            def.resolve(data);
+                        }, function (err) {
+                            def.reject(err);
+                        });
+                        return def.promise;
+                    },
+                    getTransactions: function(){
+                        var def = $q.defer();
+                        this.api().get({}, {}, function (data) {
+                            $log.warn('Api::data:: ');
+                            $log.warn(data);
+                            def.resolve(data);
+                        }, function (err) {
+                            def.reject(err);
+                        });
+                        return def.promise;
                     }
                 };
             }]);

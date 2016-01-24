@@ -40,6 +40,21 @@
                     });
                 };
 
+                $scope.postTransaction = function(postData){
+                    apitestService.postTransaction(postData).then(function(data){
+                        $log.info(data);
+                    },function(err){
+                        $log.info(err);
+                    });
+                };
+                $scope.getTransactions = function(postData){
+                    apitestService.getTransactions().then(function(data){
+                        $log.info(data);
+                    },function(err){
+                        $log.info(err);
+                    });
+                };
+
 
             };
             init();

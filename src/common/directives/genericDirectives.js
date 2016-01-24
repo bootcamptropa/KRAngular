@@ -24,7 +24,7 @@ angular.module('genericDirectives', [])
             link: function (scope) {
 
                 scope.haveAvatar = function() {
-                    if (scope.model.seller.avatar_url{
+                    if (scope.model.seller.avatar_url){
                         return true;
                     }
                     return false;
@@ -37,6 +37,14 @@ angular.module('genericDirectives', [])
 
                     return false;
                 };
+
+                scope.getItems = function() {
+                    if (scope.model.seller.products_count == 1){
+                        return false;
+                    }
+
+                    return true;
+                };
             }
         };
 
@@ -46,6 +54,40 @@ angular.module('genericDirectives', [])
         return {
             restrict: "AE",
             templateUrl: "directives/templates/productlistUprofile.tpl.html",
+            replace: true,
+            scope: {
+                model: "=",
+                onEdit: '&'
+            },
+            link: function (scope) {
+                scope.gotoAlbum = function (id_album) {
+                    $state.go('root.product', {'id_product': parseInt(id_product)});
+                };
+            }
+        };
+
+    })
+    .directive('transactionList',function(){
+        return {
+            restrict: "AE",
+            templateUrl: "directives/templates/transactionList.tpl.html",
+            replace: true,
+            scope: {
+                model: "=",
+                onEdit: '&'
+            },
+            link: function (scope) {
+                scope.gotoAlbum = function (id_album) {
+                    $state.go('root.product', {'id_product': parseInt(id_product)});
+                };
+            }
+        };
+
+    })
+    .directive('tusDatos',function(){
+        return {
+            restrict: "AE",
+            templateUrl: "directives/templates/tusDatos.tpl.html",
             replace: true,
             scope: {
                 model: "=",

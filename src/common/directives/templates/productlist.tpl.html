@@ -21,7 +21,7 @@
             </div>
             <div class="seller">
                 <p class="name">{{::model.seller.username}}</p>
-                <p class="products">1 producto(s)</p>
+                <p class="products">{{::model.seller.products_count}} <span ng-if="getItems()">productos</span><span ng-if="!getItems()">producto</span></p>
             </div>
         </div>
     </a>
