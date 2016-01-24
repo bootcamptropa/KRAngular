@@ -12,10 +12,11 @@
                         }
                     },
                     resolve:{
-                        load_data: (['globalService','$stateParams', '$q', '$log','$filter',
-                            function (globalService, $stateParams, $q, $log,$filter) {
+                        load_data: (['globalService','$stateParams', '$q', '$log',
+                            function (globalService, $stateParams, $q, $log) {
                             $log.warn('Home::ResolveData::');
                             var geo = globalService.getGeolocalization();
+                            $log.warn(geo);
                             return $q.all([geo]);
                         }])
                     },
