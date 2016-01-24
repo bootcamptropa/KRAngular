@@ -41,7 +41,10 @@ angular.module('productsService', [])
                 getProducts: function () {
                     //Service action with promise resolve (then)
                     var def = $q.defer();
-                    this.api().get({}, {}, function (data) {
+                    var querystring  = {
+                        race:1,
+                    };
+                    this.api().get(querystring, {}, function (data) {
                         def.resolve(data);
                     }, function (err) {
                         def.reject(err);

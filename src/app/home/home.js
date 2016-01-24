@@ -11,13 +11,23 @@
                             templateUrl: 'home/home.tpl.html'
                         }
                     },
+                    resolve:{
+                        load_data: (['globalService','$stateParams', '$q', '$log','$filter', function (globalService, $stateParams, $q, $log,$filter) {
+                            $log.warn('Home::ResolveData::');
+                            $log.info($stateParams);
+                            var geo = globalService.getGeolocalization();
+                            return $q.all([geo]);
+                        }])
+                    },
                     data: {
                         pageTitle: 'Home'
                     }
                 });
         }]);
 
-    app.controller('HomeController', ['$log','$scope','$state','productsService', function ($log,$scope,$state,productsService) {
+
+    app.controller('HomeController', ['$scope','$log', 'productService','$state','globalService','load_data', function ($scope,$log, productService,$state,globalService,load_data) {
+
 
         var init = function () {
             $log.info('App:: Starting HomeController');
@@ -25,35 +35,19 @@
             $scope.model={};
             $scope.model.pageTitle=$state.current.data.pageTitle;
 
-            $scope.photos = [
-                {id: '1', 'title': 'A nice day!', src: "http://lorempixel.com/200/190/animals"},
-                {id: '2', 'title': 'Puh!', src: "http://lorempixel.com/200/210/animals"},
-                {id: '3', 'title': 'What a club!', src: "http://lorempixel.com/200/201/animals"},
-                {id: '4', 'title': 'A nice day!', src: "http://lorempixel.com/200/185/animals"},
-                {id: '5', 'title': 'Puh!', src: "http://lorempixel.com/200/120/animals"},
-                {id: '6', 'title': 'What a club!', src: "http://lorempixel.com/200/150/animals"},
-                {id: '7', 'title': 'A nice day!', src: "http://lorempixel.com/200/210/animals"},
-                {id: '8', 'title': 'Puh!', src: "http://lorempixel.com/200/300/animals"},
-                {id: '9', 'title': 'What a club!', src: "http://lorempixel.com/200/175/animals"},
-                {id: '10', 'title': 'A nice day!', src: "http://lorempixel.com/200/190/animals"},
-                {id: '11', 'title': 'Puh!', src: "http://lorempixel.com/200/220/animals"},
-                {id: '12', 'title': 'What a club!', src: "http://lorempixel.com/200/211/animals"},
-                {id: '13', 'title': 'A nice day!', src: "http://lorempixel.com/200/202/animals"},
-                {id: '14', 'title': 'Puh!', src: "http://lorempixel.com/200/203/animals"},
-                {id: '15', 'title': 'What a club!', src: "http://lorempixel.com/200/205/animals"},
-                {id: '16', 'title': 'A nice day!', src: "http://lorempixel.com/200/204/animals"},
-                {id: '17', 'title': 'Puh!', src: "http://lorempixel.com/200/210/animals"},
-                {id: '18', 'title': 'What a club!', src: "http://lorempixel.com/200/212/animals"}
-            ];
+            var geo = load_data[0];
 
+            productService.getAction(1,1,geo.coords.latitude,geo.coords.longitude).then(function(data){
+                console.log(data);
+                $scope.products = data;
+            });
         };
 
         init();
     }]);
 
-
 }(angular.module("KRAngular.home", [
     'ui.router',
-    'akoenig.deckgrid',
-    'productsService'
+    'productService',
+    'globalService'
 ])));

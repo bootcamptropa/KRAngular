@@ -127,6 +127,19 @@ angular.module('globalService', ['LocalStorageModule'])
                         dec = tmp_arr.join('');
 
                         return dec.replace(/\0+$/, '');
+                    },
+                    getGeolocalization: function(){
+                        var def = $q.defer();
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(function(data){
+
+                                def.resolve(data);
+                            }, function (err) {
+                                def.reject(err);
+                            });
+                        }
+                        return def.promise;
+
                     }
                 };
             }]);
