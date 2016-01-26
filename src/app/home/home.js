@@ -15,9 +15,13 @@
                         load_data: (['globalService','$stateParams', '$q', '$log',
                             function (globalService, $stateParams, $q, $log) {
                             $log.warn('Home::ResolveData::');
-                            var geo = globalService.getGeolocalization();
-                            $log.warn(geo);
-                            return $q.all([geo]);
+
+                            globalService.getGeolocalization().then(function(data){
+                                $log.info('Recuperadas coordenadas');
+                                return $q.all([data]);
+                            },function(err){
+                                console.log(err);
+                            });
                         }])
                     },
                     data: {
@@ -37,9 +41,17 @@
             $scope.model={};
             $scope.model.pageTitle=$state.current.data.pageTitle;
 
-            var geo = load_data[0];
+            $log.warn('Geolicalizacion: '+ load_data);
 
-            productService.getAction(null,null,null,null,null).then(function(data){
+            var latitude = null;
+            var longitude = null;
+            if (load_data !== undefined && typeof Object.keys(load_data)[0] !== 'undefined'){
+                $log.info('Geolocalizacion aceptada');
+                latitude = load_data[0].coords.latitude;
+                longitude = load_data[0].coords.longitude;
+            }
+
+            productService.getAction(null,null,latitude,longitude,null).then(function(data){
                 $rootScope.domReady=true;
                 $scope.products = data;
             });
@@ -59,7 +71,7 @@
                     data.search.race.id = null;
                 }
 
-                productService.getAction(data.search.race.id,null,geo.coords.latitude,geo.coords.longitude,data.search.distance.id).then(function(data){
+                productService.getAction(data.search.race.id,null,latitude,longitude,data.search.distance.id).then(function(data){
                     console.log(data);
                     $rootScope.domReady=true;
                     $scope.products = data;

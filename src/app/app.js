@@ -212,6 +212,21 @@
             });
         };
 
+        $scope.cleanSearch = function(){
+
+            $log.info('Limpiamos filtros.');
+
+            $rootScope.search.race = {};
+            $rootScope.search.race.id=null;
+            $rootScope.search.race.name=null;
+
+            $rootScope.search.distance = {};
+            $rootScope.search.distance.id=null;
+            $rootScope.search.distance.name=null;
+
+            $scope.submitSearch();
+        };
+
         $scope.isCollapsed = true;
 
         racesService.getRaces().then(function(data) {
