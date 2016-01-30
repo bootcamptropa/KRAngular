@@ -17,9 +17,27 @@
                         </div>
                         <p>&nbsp;</p>
                         <div class="col-md-12">
-                            <button type="button" ng-click="" class="btn btn-info btn-block">
-                                <i class="fa fa-paw"></i> Comprar Producto
+                            <button type="button" ng-click="changeCollaps()" class="btn btn-info btn-block">
+                                <i class="fa fa-paw"></i> {{buyText}}
                             </button>
+                        </div>
+                        <div uib-collapse="isCollapsed">
+                            <div class="col-md-12">
+                                <uib-alert type="succes">
+                                    Se enviará un mensaje al vendedor con tu nombre de usuario y correo electr&oacute;nico para acordar compra.
+                                </uib-alert>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" ng-click="buyProduct()" class="btn btn-info btn-block">
+                                    <i class="fa fa-paw"></i> Aceptar
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" ng-click="isCollapsed = true" class="btn btn-err btn-block">
+                                    <i class="fa fa-paw"></i> Cancelar
+                                </button>
+                            </div>
+
                         </div>
                         <p>&nbsp;</p>
                     </div>

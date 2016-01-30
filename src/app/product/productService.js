@@ -72,6 +72,18 @@ angular.module('productService', [])
                         });
                         return def.promise;
                     },
+                    saveTransaction: function(idProduct){
+                        var postData = {
+                            product: idProduct
+                        };
+                        var def = $q.defer();
+                        this.api('/transactions/').save({},postData,function(data){
+                            def.resolve(data);
+                        },function(err){
+                            def.reject(err);
+                        });
+                        return def.promise;
+                    },
                     getCustomer: function () {
                         var def = $q.defer();
                         this.api().get({}, {}, function (data) {
