@@ -22,6 +22,20 @@
                     url: '',
                     abstract: true,
                     resolve:{
+                        load_data: (['globalService','$stateParams', '$q', '$log',
+                            function (globalService, $stateParams, $q, $log) {
+                                $log.warn('Home::ResolveData::');
+
+                                globalService.getGeolocalization().then(function(position){
+                                    $log.info('Recuperadas coordenadas');
+                                    globalService.setStorageItem('latitude',position.coords.latitude);
+                                    globalService.setStorageItem('longitude',position.coords.longitude);
+                                },function(err){
+                                    console.log(err);
+                                    globalService.setStorageItem('latitude',null);
+                                    globalService.setStorageItem('longitude',null);
+                                });
+                            }])
                     },
                     views: {
                         'global': {
@@ -89,11 +103,6 @@
         $log.info('App:: Starting AppController');
 
         $scope.addProductModal = function(){
-
-            navigator.geolocation.getCurrentPosition(function(position) {
-                globalService.setStorageItem('latitude',position.coords.latitude);
-                globalService.setStorageItem('longitude',position.coords.longitude);
-            });
 
             racesService.getRaces().then(function(data){
                 $scope.data = {};

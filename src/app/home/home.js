@@ -12,17 +12,7 @@
                         }
                     },
                     resolve:{
-                        load_data: (['globalService','$stateParams', '$q', '$log',
-                            function (globalService, $stateParams, $q, $log) {
-                            $log.warn('Home::ResolveData::');
 
-                            globalService.getGeolocalization().then(function(data){
-                                $log.info('Recuperadas coordenadas');
-                                return $q.all([data]);
-                            },function(err){
-                                console.log(err);
-                            });
-                        }])
                     },
                     data: {
                         pageTitle: 'Home'
@@ -41,15 +31,8 @@
             $scope.model={};
             $scope.model.pageTitle=$state.current.data.pageTitle;
 
-            $log.warn('Geolicalizacion: '+ load_data);
-
-            var latitude = null;
-            var longitude = null;
-            if (load_data !== undefined && typeof Object.keys(load_data)[0] !== 'undefined'){
-                $log.info('Geolocalizacion aceptada');
-                latitude = load_data[0].coords.latitude;
-                longitude = load_data[0].coords.longitude;
-            }
+            var latitude = globalService.getStorageItem('latitude');
+            var longitude = globalService.getStorageItem('longitude');
 
             productService.getAction(null,null,latitude,longitude,null).then(function(data){
                 $rootScope.domReady=true;
