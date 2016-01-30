@@ -11,5 +11,9 @@
 
         <uib-alert template-url="alert.html">No se han encontrado productos con los filtros seleccionados, por favor modifica los filtros seleccionados.</uib-alert>
     </div>
+    <div class="clear"></div>
+    <div class="pagination">
+        <uib-pagination total-items="bigTotalItems" items-per-page="itemsPerPage" ng-change="pageChanged()" previous-text="Anterior" next-text="Siguiente" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" rotate="false"></uib-pagination>
+    </div>
 
 </div>

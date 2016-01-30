@@ -28,8 +28,7 @@ angular.module('productsService', [])
                         },
                         get: {
                             timeout: 15000,
-                            method: 'GET',
-                            isArray: true
+                            method: 'GET'
                         },
                         getOne: {
                             timeout: 15000,
@@ -40,10 +39,27 @@ angular.module('productsService', [])
                 myFunction: function(){
                     alert('hola');
                 },
-                getProducts: function () {
+                getProducts: function (race,category,lat,lon,distance,offset,limit) {
                     //Service action with promise resolve (then)
                     var def = $q.defer();
-                    this.api().get({}, {}, function (data) {
+                    var paramList = {};
+                    if (race){
+                        paramList.race = race;
+                    }
+                    if (category){
+                        paramList.category = category;
+                    }
+                    if (lat){
+                        paramList.lat = lat;
+                    }
+                    if (lon){
+                        paramList.lon = lon;
+                    }
+                    if (distance){
+                        paramList.distance = distance;
+                    }
+
+                    this.api('?limit='+limit+'&offset='+offset).get(paramList, {}, function (data) {
                         def.resolve(data);
                     }, function (err) {
                         def.reject(err);
