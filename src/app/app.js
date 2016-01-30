@@ -24,7 +24,7 @@
                     resolve:{
                         load_data: (['globalService','$stateParams', '$q', '$log',
                             function (globalService, $stateParams, $q, $log) {
-                                $log.warn('Home::ResolveData::');
+                                $log.warn('App::ResolveData::');
 
                                 globalService.getGeolocalization().then(function(position){
                                     $log.info('Recuperadas coordenadas');
