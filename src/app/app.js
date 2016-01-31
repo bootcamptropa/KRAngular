@@ -242,13 +242,6 @@
             $scope.races = data;
         });
 
-        $scope.sortMe = function() {
-            return function(object) {
-                $log.info('Ordenamos las razas');
-                return object.name;
-            };
-        };
-
     }]);
 
     app.controller('FooterController', ['$scope', '$log', function ($scope, $log) {
