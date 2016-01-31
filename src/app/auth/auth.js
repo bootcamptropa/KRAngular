@@ -139,6 +139,10 @@
 
             };
 
+            $scope.goHome = function() {
+                $state.go("root.home");
+            };
+
             init();
         }]);
 
