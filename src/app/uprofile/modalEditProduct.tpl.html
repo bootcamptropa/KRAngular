@@ -29,7 +29,7 @@
                                     Raza : <span class="label label-default">{{data.product.race}}</span>
                                 </label>
                                 <select ng-model="data.product.raceid" class="form-control form-inline" id="wdraza">
-                                    <option ng-repeat="race in data.loaddata.races" value="{{race.id}}">{{race.name}}</option>
+                                    <option ng-repeat="race in data.loaddata.races | orderBy:'name'" value="{{race.id}}">{{race.name}}</option>
                                 </select>
 
                             </div>

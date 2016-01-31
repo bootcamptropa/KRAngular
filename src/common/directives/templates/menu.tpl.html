@@ -21,7 +21,7 @@
                         {{search.race.name||'Razas'}} <span class="caret"></span>
                     </button>
                     <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
-                        <li ng-repeat="race in races" role="menuitem"><span style="cursor:pointer;" ng-click="updateSearchParam('race',race.id,race.name)">{{ race.name }}</span></li>
+                        <li ng-repeat="race in races | orderBy:'name'" role="menuitem"><span style="cursor:pointer;" ng-click="updateSearchParam('race',race.id,race.name)">{{ race.name }}</span></li>
                     </ul>
                 </div>
                 <!--<div class="btn-group" uib-dropdown is-open="status.isopen">
