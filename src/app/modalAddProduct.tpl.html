@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title">Editar Producto</h3>
+    <h3 class="modal-title">Añadir Producto</h3>
 </div>
 <div class="modal-body">
     <form role="form">
@@ -28,7 +28,7 @@
                                     Raza : <span class="label label-default">{{data.product.race}}</span>
                                 </label>
                                 <select ng-model="data.product.race" class="form-control form-inline" id="wdraza">
-                                    <option ng-repeat="race in data.loaddata.races" value="{{race.id}}">{{race.name}}</option>
+                                    <option ng-repeat="race in data.loaddata.races | orderBy:'name'" value="{{race.id}}">{{race.name}}</option>
                                 </select>
 
                             </div>
