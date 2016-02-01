@@ -45,9 +45,8 @@
                 });
         }]);
 
-    app.controller('ProductController', ['$scope', '$log', '$state','NgMap','productService','productData', function ($scope, $log, $state,NgMap,productService,productData) {
+    app.controller('ProductController', ['$scope', '$log', '$state','NgMap','productService','productData','$rootScope', function ($scope, $log, $state,NgMap,productService,productData,$rootScope) {
         $log.info('App:: Starting CustomerController');
-
 
         var init = function () {
             $scope.model = {};
@@ -55,6 +54,7 @@
             $scope.model.pageTitle = $state.current.data.pageTitle;
             $scope.myInterval = 5000;
             $scope.noWrapSlides = true;
+
 
             var prodId = '';
             if (!$state.params.productId){
@@ -90,9 +90,47 @@
                     $scope.addSlide(imagesArr[i].photo_url, $scope.name);
                 }
             }
+
+            $scope.isCollapsed = true;
+            $scope.buyText = "Comprar";
+            var buyed = true;
+
+            $scope.changeCollaps = function () {
+                if ($rootScope.uData.userId != productData.seller.id) {
+                    if(buyed) {
+                        $scope.isCollapsed = !$scope.isCollapsed;
+                    }
+
+                } else {
+                    $scope.buyText = 'Esto es tuyo :D';
+                }
+            };
+
+            $scope.buyProduct = function(){
+                //prodId product.id
+                $log.info('Info $rootScope: ',$rootScope);
+                if(typeof $rootScope.uData.wcookie === "string") {
+                    $scope.actionMsg = 'Updating selected product...';
+                    productService.saveTransaction(prodId).then(function(data){
+                        $scope.buyText = 'Comprado!!!';
+                        $scope.isCollapsed = true;
+                        buyed = false;
+                    },function(err){
+                        $scope.buyText = 'Error buying: '+err;
+                        $scope.isCollapsed = true;
+                        buyed = false;
+                    });
+                } else {
+                    $log.warn('NotLoged');
+                    alert('You must be logged in order to buy');
+                    $state.go('root.auth');
+                }
+            };
         };
 
         init();
+
+
 
     }]);
 
@@ -147,6 +185,7 @@
     });
 
 }(angular.module("KRAngular.product", [
+    'ui.bootstrap',
     'ui.router',
     'globalService',
     'productService',
