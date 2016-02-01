@@ -70,16 +70,60 @@
             };
 
             $scope.doRegister = function(){
+                var long = globalService.getStorageItem('longitude');
+                var lati = globalService.getStorageItem('latitude');
+
+                if (typeof long !== "number") {
+                    long = 0;
+                }
+                if (typeof lati !== "number") {
+                    lati = 0;
+                }
+
                 var registerData = {
                     username:$scope.rusername,
                     password:$scope.rpassword,
                     password2:$scope.rpassword2,
-                    first_name:$scope.firstname,
-                    last_name:$scope.lastname,
-                    email:$scope.remail
+                    first_name:$scope.rfirstname,
+                    last_name:$scope.rlastname,
+                    email:$scope.remail,
+                    longitude:long,
+                    latitude:lati,
+                    token_facebook:0,
+                    //TODO: avatar_url no debe ser obligatoria en el api.
+                    avatar_url:"http://walladog.com/assets/logos/walladogt.png"
                 };
                 authService.doRegister(registerData).then(function(data){
                     setMsg($scope.err,'Registro exitoso',false);
+                    var loginData = {
+                        username:$scope.rusername,
+                        password:$scope.rpassword
+                    };
+                    authService.doLoginOAuth2(loginData).then(function(data){
+                        if(data.access_token && data.refresh_token){
+                            loginsService.getUserInfo().then(function(dataCustomer){
+                                $rootScope.uData.avatar=dataCustomer.avatar_url;
+                                $rootScope.uData.email=dataCustomer.email;
+                                $rootScope.uData.firstName=dataCustomer.first_name;
+                                $rootScope.uData.lastName=dataCustomer.last_name;
+                                $rootScope.uData.userId=dataCustomer.id;
+                                $rootScope.uData.userName=dataCustomer.username;
+                                $rootScope.uData.isLogged=true;
+                                $state.go('root.uprofile');
+                            },function(errCustomer){
+                                $log.warn(errCustomer);
+                                $scope.err2.visible=true;
+                                $scope.err2.error='Error en el registro:';
+                                $scope.err2.error_description=JSON.stringify(errCustomer.data);
+                            });
+                        }
+                    },function(err){
+                        $log.warn(err);
+                        $scope.err2.visible=true;
+                        $scope.err2.error='Error al identificarte:';
+                        $scope.err2.error_description=JSON.stringify(err.data);
+                    });
+
                 },function(err){
                     setMsg($scope.err,err.data,'Error en el registro');
                 });
