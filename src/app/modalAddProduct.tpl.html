@@ -24,33 +24,6 @@
                         <div class="col-xs-6">
 
                             <div class="form-group">
-                                <label for="wdraza">
-                                    Raza : <span class="label label-default">{{data.product.race}}</span>
-                                </label>
-                                <select ng-model="data.product.race" class="form-control form-inline" id="wdraza">
-                                    <option ng-repeat="race in data.loaddata.races | orderBy:'name'" value="{{race.id}}">{{race.name}}</option>
-                                </select>
-
-                            </div>
-
-                        </div>
-                        <div class="col-xs-6">
-
-                            <div class="form-group">
-                                <label for="wdstate">
-                                    Estado : <span class="label label-default">{{data.product.state}}</span>
-                                </label>
-                                <select ng-model="data.product.state" class="form-control" id="wdstate">
-                                    <option ng-repeat="state in data.loaddata.states" value="{{state.id}}">{{state.name}}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6">
-
-                            <div class="form-group">
                                 <label for="wdprice">
                                     Precio
                                 </label>
@@ -70,6 +43,22 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="col-xs-6">
+
+                            <div class="form-group">
+                                <label for="wdraza">
+                                    Raza : <span class="label label-default">{{data.product.race}}</span>
+                                </label>
+                                <select ng-model="data.product.race" class="form-control form-inline" id="wdraza" ng-disabled="data.product.category!=1">
+                                    <option ng-repeat="race in data.loaddata.races | orderBy:'name'" value="{{race.id}}">{{race.name}}</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
                 <div class="col-md-6">
                     <div class="row">
@@ -79,7 +68,7 @@
                                 <label for="wdsterile">
                                     Esterilizado: <span class="label label-default">{{data.product.sterile|boolVal}}</span>
                                 </label>
-                                <select ng-model="data.product.sterile" class="form-control" id="wdsterile">
+                                <select ng-model="data.product.sterile" class="form-control" id="wdsterile" ng-disabled="data.product.category!=1">
                                     <option value="true" selected>Si</option>
                                     <option value="false">No</option>
                                 </select>
@@ -91,7 +80,7 @@
                                 <label for="wdgender">
                                     Genero : <span class="label label-default">{{data.product.gender|genders}}</span>
                                 </label>
-                                <select ng-model="data.product.gender" class="form-control" id="wdgender">
+                                <select ng-model="data.product.gender" class="form-control" id="wdgender" ng-disabled="data.product.category!=1">
                                     <option ng-repeat="gen in data.loaddata.gender" value="{{gen.name}}">{{gen.name}}</option>
                                 </select>
                             </div>

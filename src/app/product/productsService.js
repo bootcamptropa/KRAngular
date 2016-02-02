@@ -100,14 +100,21 @@ angular.module('productsService', [])
                         name:data.name,
                         description:data.description,
                         price:data.price,
-                        category:data.categoryid,
-                        race:data.raceid,
-                        sterile:data.sterile,
-                        gender:data.gender,
-                        state:data.stateid
+                        category:data.categoryid
                     };
-                    console.log(geodata);
+
+                    if (data.race !== undefined){
+                        postData.race = data.race;
+                    }
+                    if (data.sterile !== undefined){
+                        postData.sterile = data.sterile;
+                    }
+                    if (data.gender !== undefined){
+                        postData.gender = data.gender;
+                    }
+
                     var def = $q.defer();
+                    console.log(geodata);
 
                     var fd = new FormData();
                     for(var key in postData){
