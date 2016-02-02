@@ -3,8 +3,8 @@
  */
 
 //URL from api to test api resources
-var API_URL = 'http://localhost:8000/api/1.0';
-//var API_URL = 'http://api.walladog.com/api/1.0';
+//var API_URL = 'http://localhost:8000/api/1.0';
+var API_URL = 'http://api.walladog.com/api/1.0';
 //var API_URL_OAUTH = 'http://localhost:8000';
 var API_URL_OAUTH = 'http://api.walladog.com';
 
