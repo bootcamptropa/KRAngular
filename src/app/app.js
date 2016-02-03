@@ -110,7 +110,7 @@
                     $scope.data.loaddata = {
                         states : [{id:1,name:'Publicado'},{id:2,name:'Vendido'},{id:3,name:'Cancelado'},{id:4,name:'Suspendido'}],
                         races : data,
-                        gender : [{id:1,name:'MAL'},{id:2,name:'FEM'},{id:3,name:'NON'}],
+                        gender : [{id:1,cod:'MAL',name:'Macho'},{id:2,cod:'FEM',name:'Hembra'},{id:3,cod:'NON',name:'Sin especificar'}],
                         sterile: [{id:1,name:'true'},{id:0,name:'false'}],
                         categories: [{id:1,name:'Perros'},{id:2,name:'Comida'},{id:3,name:'Ropa'},{id:4,name:'Accesorios'},{id:5,name:'Otros'}]
                     };

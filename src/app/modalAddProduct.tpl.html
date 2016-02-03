@@ -81,7 +81,7 @@
                                     Genero : <span class="label label-default">{{data.product.gender|genders}}</span>
                                 </label>
                                 <select ng-model="data.product.gender" class="form-control" id="wdgender" ng-disabled="data.product.category!=1">
-                                    <option ng-repeat="gen in data.loaddata.gender" value="{{gen.name}}">{{gen.name}}</option>
+                                    <option ng-repeat="gen in data.loaddata.gender" value="{{gen.cod}}">{{gen.name}}</option>
                                 </select>
                             </div>
                         </div>
