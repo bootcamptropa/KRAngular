@@ -218,6 +218,7 @@ body {
 
 .photo .photo-price {
   color: #71b9ca;
+  font-size: 32px;
   padding:5px;
 }
 
@@ -225,11 +226,24 @@ body {
   padding:5px;
 }
 
-.circleBase {
-@include square(3rem);
+
+.photo .img-circle {
+  padding:5px;
   transition: all 0.5s;
+  -webkit-transition: 0.5s ease;
+}
+
+.img-circle:hover {
+  transform: rotate(360deg);
+  -webkit-transform : rotate(360deg);
+}
+
+
+
+.circleBase {
+  transition: all 0.5s;
+  -webkit-transition: 2.5s ease;
   cursor: pointer;
-  background-color: $light-gray;
   border: 2px solid white;
   width: 3rem;
   border-radius: 100%;
@@ -240,12 +254,8 @@ body {
 }
 
 .circleBase:hover {
-@include absolute-bottom-left(2rem, 1rem);
-
-  .user-img{
-    transform: rotate(360deg);
-  }
-
+  transform: rotate(360deg);
+  -webkit-transform : rotate(360deg);
 }
 
 .type1 {
