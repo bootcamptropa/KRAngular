@@ -100,49 +100,49 @@
 
     app.controller('AppController', ['$scope', '$log','racesService','$uibModal','globalService',
         function ($scope, $log,racesService,$uibModal,globalService) {
-        $log.info('App:: Starting AppController');
+            $log.info('App:: Starting AppController');
 
-        $scope.addProductModal = function(){
+            $scope.addProductModal = function(){
 
-            racesService.getRaces().then(function(data){
-                $scope.data = {};
-                $scope.data.product = {};
-                $scope.data.loaddata = {
-                    states : [{id:1,name:'Publicado'},{id:2,name:'Vendido'},{id:3,name:'Cancelado'},{id:4,name:'Suspendido'}],
-                    races : data,
-                    gender : [{id:1,name:'MAL'},{id:2,name:'FEM'},{id:3,name:'NON'}],
-                    sterile: [{id:1,name:'true'},{id:0,name:'false'}],
-                    categories: [{id:1,name:'Perros'},{id:2,name:'Comida'},{id:3,name:'Ropa'},{id:4,name:'Accesorios'},{id:5,name:'Otros'}]
-                };
+                racesService.getRaces().then(function(data){
+                    $scope.data = {};
+                    $scope.data.product = {};
+                    $scope.data.loaddata = {
+                        states : [{id:1,name:'Publicado'},{id:2,name:'Vendido'},{id:3,name:'Cancelado'},{id:4,name:'Suspendido'}],
+                        races : data,
+                        gender : [{id:1,cod:'MAL',name:'Macho'},{id:2,cod:'FEM',name:'Hembra'},{id:3,cod:'NON',name:'Sin especificar'}],
+                        sterile: [{id:1,name:'true'},{id:0,name:'false'}],
+                        categories: [{id:1,name:'Perros'},{id:2,name:'Comida'},{id:3,name:'Ropa'},{id:4,name:'Accesorios'},{id:5,name:'Otros'}]
+                    };
 
-                var modalInstance = $uibModal.open({
-                    animation: true,
-                    templateUrl: 'modalAddProduct.tpl.html',
-                    controller: 'ModalAddProductCtrl',
-                    size: 'lg',
-                    resolve: {
-                        data: function(){
-                            return $scope.data;
+                    var modalInstance = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'modalAddProduct.tpl.html',
+                        controller: 'ModalAddProductCtrl',
+                        size: 'lg',
+                        resolve: {
+                            data: function(){
+                                return $scope.data;
+                            }
                         }
-                    }
+                    });
+
+                    modalInstance.result.then(function (updatedProduct) {
+                        $scope.newProduct = updatedProduct;
+                        console.log($scope.newProduct);
+                    }, function () {
+                        $log.info('Modal dismissed at: ' + new Date());
+                    });
+
+                },function(err){
+
                 });
 
-                modalInstance.result.then(function (updatedProduct) {
-                    $scope.newProduct = updatedProduct;
-                    console.log($scope.newProduct);
-                }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-
-            },function(err){
-
-            });
 
 
+            };
 
-        };
-
-    }]);
+        }]);
 
     app.directive('fileModel', ['$parse', function ($parse) {
         return {
@@ -160,13 +160,16 @@
         };
     }]);
 
-    app.controller('ModalAddProductCtrl', function ($scope, $uibModalInstance, data,productsService,globalService) {
+    app.controller('ModalAddProductCtrl', function ($scope, $uibModalInstance, data,productsService,globalService, $state) {
         $scope.data = data;
         $scope.actionMsg = '';
         $scope.myFile=null;
         var geoData = {};
 
         var init = function(){
+            $scope.btnCancel = true;
+            $scope.btnClose = false;
+            $scope.btnSave = true;
             globalService.getGeolocalization().then(function(data){
                 geoData.latitude=data.coords.latitude;
                 geoData.longitude=data.coords.longitude;
@@ -181,6 +184,9 @@
             var file = $scope.myFile;
             productsService.newProduct(data.product,file,geoData).then(function(data){
                 $scope.actionMsg = 'Product Updated!';
+                $scope.btnCancel = false;
+                $scope.btnClose = true;
+                $scope.btnSave = false;
             },function(err){
                 $scope.actionMsg = 'Error al Crear Producto:: '+JSON.stringify(err);
             });
@@ -188,6 +194,11 @@
         };
         $scope.cancel = function () {
             $uibModalInstance.dismiss('cancel');
+        };
+
+        $scope.close = function () {
+            $uibModalInstance.dismiss('cancel');
+            $state.go($state.current, {}, {reload: true});
         };
 
         init();

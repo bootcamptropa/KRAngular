@@ -168,16 +168,16 @@
     }]);
     app.filter("genders", function() {
         return function(gender) {
-            if (gender == "NON") { return "Not specified"; }
-            else if (gender == "MAL") { return "Male"; }
-            else if (gender == "FEM") { return "Female"; }
+            if (gender == "NON") { return "No especificado"; }
+            else if (gender == "MAL") { return "Macho"; }
+            else if (gender == "FEM") { return "Hembra"; }
             else { return ""; }
         };
     });
     app.filter("boolVal", function() {
         return function(boolVal) {
             if(boolVal) {
-                return "Yes";
+                return "Si";
             } else  {
                 return "No";
             }

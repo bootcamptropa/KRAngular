@@ -54,16 +54,16 @@
                                         <table class="table table-hover">
                                             <tbody class="text">
                                             <tr>
-                                                <td>Category:</td><td>{{product.category}}</td>
+                                                <td>Categoría:</td><td>{{product.category}}</td>
                                             </tr>
-                                            <tr>
-                                                <td>Race:</td><td>{{product.race}}</td>
+                                            <tr ng-if="product.categoryid == 1">
+                                                <td>Raza:</td><td>{{product.race}}</td>
                                             </tr>
-                                            <tr>
-                                                <td>Gender:</td><td>{{product.gender | genders}}</td>
+                                            <tr ng-if="product.categoryid == 1">
+                                                <td>Género:</td><td>{{product.gender | genders}}</td>
                                             </tr>
-                                            <tr>
-                                                <td>Sterile:</td><td>{{product.sterile | boolVal}}</td>
+                                            <tr ng-if="product.categoryid == 1">
+                                                <td>¿Esterilizado?:</td><td>{{product.sterile | boolVal}}</td>
                                             </tr>
                                             </tbody>
                                         </table>
