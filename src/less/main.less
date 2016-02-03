@@ -210,6 +210,12 @@ body {
   width:220px;
   display: inline-block;
   text-align: left;
+  cursor: pointer;
+  transition: box-shadow .5s;
+}
+
+.photo:hover {
+  box-shadow: 1px 1px 12px 0px #515151;
 }
 
 .photo .photo-index {
@@ -228,6 +234,17 @@ body {
 
 .photo .photo-wrapper {
   min-height:60px;
+}
+
+.photo .img-circle {
+  padding:5px;
+  transition: all 0.5s;
+  -webkit-transition: 0.5s ease;
+}
+
+.img-circle:hover {
+  transform: rotate(360deg);
+  -webkit-transform : rotate(360deg);
 }
 
 .photo .photo-name, .photo .photo-category {
@@ -350,6 +367,7 @@ body {
 .pagination{
   display: flex;
   margin: 0 auto;
+  margin-top:15px;
 }
 
 

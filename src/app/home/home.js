@@ -67,7 +67,9 @@
             $scope.pageChanged = function() {
                 $log.log('Page changed to: ' + $scope.bigCurrentPage);
                 $scope.setPage($scope.bigCurrentPage);
+                $rootScope.domReady = true;
                 getProducts(race_search,null,latitude,longitude,distance_search,(($scope.bigCurrentPage - 1) * $scope.itemsPerPage));
+                $rootScope.domReady = false;
             };
         };
 
