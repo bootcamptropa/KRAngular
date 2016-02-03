@@ -16,7 +16,7 @@
                         </div>
                         <div class="list-group-item">
                             <p class="list-group-item-text">
-                                <button class="btn btn-info" style="width:95%;text-align:left;"><i class="fa fa-user"></i> Tus datos </button>
+                                <button class="btn btn-info" ng-click="getUserDetaills()" style="width:95%;text-align:left;"><i class="fa fa-user"></i> Tus datos </button>
                                 <p></p>
                                 <button class="btn btn-info" style="width:95%;text-align:left;"><i class="fa fa-commenting"></i> Notificationes <span class="badge" style="float:right;">3</span></button>
                             </p>
@@ -37,7 +37,7 @@
 
                             <product-list-uprofile ng-show="modelSelling.length" model="modelSelling" loaddata="loaddata"></product-list-uprofile>
                             <product-list-uprofile ng-show="modelSold.length" model="modelSold" loaddata="loaddata"></product-list-uprofile>
-                            <tus-datos ng-show="modelUser.length" model="modelUser"></tus-datos>
+                            <tus-datos ng-show="modelUserActive" model="modelUser"></tus-datos>
                             <transaction-list ng-show="modelTransactions.length" model="modelTransactions"></transaction-list>
 
 
