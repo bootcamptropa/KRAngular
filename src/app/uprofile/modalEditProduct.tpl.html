@@ -93,13 +93,13 @@
                                     Genero : <span class="label label-default">{{data.product.gender|genders}}</span>
                                 </label>
                                 <select ng-model="data.product.gender" class="form-control" id="wdgender">
-                                    <option ng-repeat="gen in data.loaddata.gender" value="{{gen.name}}">{{gen.name}}</option>
+                                    <option ng-repeat="gen in data.loaddata.gender" value="{{gen.cod}}">{{gen.name}}</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="Images">
+                        <label>
                             Seleccionas tus fotos:
                         </label>
                         <div class="row" style="margin-top:3px;">
