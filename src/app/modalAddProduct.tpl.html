@@ -11,13 +11,13 @@
                         <label for="wdname">
                             Nombre
                         </label>
-                        <input type="text" ng-model="data.product.name" class="form-control" id="wdname" />
+                        <input type="text" ng-model="data.product.name" class="form-control" id="wdname" required/>
                     </div>
                     <div class="form-group">
                         <label for="wdtextarea">
                             Descripción
                         </label>
-                        <textarea rows="3" cols="4" ng-model="data.product.description" class="form-control" id="wdtextarea">{{data.product.description}}</textarea>
+                        <textarea rows="3" cols="4" ng-model="data.product.description" class="form-control" id="wdtextarea" required>{{data.product.description}}</textarea>
                     </div>
 
                     <div class="row">
@@ -27,7 +27,7 @@
                                 <label for="wdprice">
                                     Precio
                                 </label>
-                                <input type="text" ng-model="data.product.price" class="form-control" id="wdprice" />
+                                <input type="text" ng-model="data.product.price" class="form-control" id="wdprice" required/>
                             </div>
 
                         </div>
@@ -36,7 +36,7 @@
                                 <label for="wdcategories">
                                     Categoria : <span class="label label-default">{{data.product.categoryid}}</span>
                                 </label>
-                                <select ng-model="data.product.category" class="form-control" id="wdcategories">
+                                <select ng-model="data.product.category" class="form-control" id="wdcategories" required>
                                     <option ng-repeat="cat in data.loaddata.categories" value="{{cat.id}}">{{cat.name}}</option>
                                 </select>
                             </div>
@@ -94,7 +94,7 @@
                             <div class="col-xs-2"><img src="/assets/logos/walladogt.png" class="img-responsive" width="35" height="35"></div>
                             <div class="col-xs-10">
                                 <!--<input type="file" multiple ng-model="data.uploadFiles" file-model="data.uploadFiles" id="uploadFiles" style="margin-top:2px;" />-->
-                                <input type="file" file-model="myFile" fileModel="myFile"/>
+                                <input type="file" file-model="myFile" fileModel="myFile" id="Images"/>
                                 <pre>{{myFile}}</pre>
                             </div>
                         </div>
@@ -113,8 +113,9 @@
             {{actionMsg}}
         </div>
         <div class="col-xs-6">
-            <button class="btn btn-success" type="button" ng-click="ok()"><i class="fa fa-save"></i> Guardar</button>
-            <button class="btn btn-warning" type="button" ng-click="cancel()"><i class="fa fa-ban"></i> Cancel</button>
+            <button class="btn btn-success" type="button" ng-click="ok()" ng-if="btnSave"><i class="fa fa-save"></i> Guardar</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()" ng-if="btnCancel"><i class="fa fa-ban"></i> Cancel</button>
+            <button class="btn btn-success" type="button" ng-click="close()" ng-if="btnClose"><i class="fa fa-times-circle-o"></i> Cerrar</button>
         </div>
     </div>
 </div>

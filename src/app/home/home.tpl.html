@@ -1,5 +1,5 @@
 <div style="text-align: left; margin-left: 6%;">
-    <div product-list ng-repeat="product in products" model="product" ng-show="domReady">
+    <div product-list ng-repeat="product in products | orderBy:'-id'" model="product" ng-show="domReady">
     </div>
 
     <div ng-if="products.length < 1">
