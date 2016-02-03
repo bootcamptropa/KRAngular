@@ -41,8 +41,8 @@
                 });
         }]);
 
-    app.controller('uprofileController', ['$scope', '$log','$state','userProductsService','uTransactionsService','$filter','load_data',
-        function ($scope, $log,$state,userProductsService,uTransactionsService,$filter,load_data) {
+    app.controller('uprofileController', ['$scope', '$log','$state','userProductsService','uTransactionsService','$filter','load_data','userDetail','$rootScope',
+        function ($scope, $log,$state,userProductsService,uTransactionsService,$filter,load_data,userDetail,$rootScope) {
 
             var init = function () {
                 $scope.model = {};
@@ -66,6 +66,7 @@
                 $scope.modelSold = {};
                 $scope.modelTransactions = {};
                 $scope.modelUser = {};
+                $scope.modelUserActive = false;
             };
 
             var calculateBadgets = function(){
@@ -113,6 +114,21 @@
                 $scope.upTitle='Transacciones';
                 uTransactionsService.getTransactions().then(function(data){
                     $scope.modelTransactions = data;
+                    $scope.upLoading = false;
+                },function(err){
+                    $scope.upLoading = false;
+                });
+            };
+
+            $scope.getUserDetaills = function(){
+                clearModels();
+                $scope.upLoading=true;
+                $scope.upTitle='Tus datos';
+                userDetail.getUser($rootScope.uData.userId).then(function(data){
+                    $scope.modelUser = data;
+                    $scope.modelUserActive = true;
+                    $scope.modelUser.subStatus = false;
+                    $scope.modelUser.subText = "Submit";
                     $scope.upLoading = false;
                 },function(err){
                     $scope.upLoading = false;
@@ -192,6 +208,56 @@
         };
     });
 
+    app.directive('tusDatos',['$log','globalService','userDetail','$rootScope',function($log,globalService,userDetail,$rootScope){
+        return {
+            restrict: "AE",
+            templateUrl: "uprofile/tusDatos.tpl.html",
+            replace: true,
+            scope: {
+                model: "=",
+                subusr: '&'
+            },
+            link: function (scope) {
+                scope.updateUsr = function () {
+                    $log.info(scope);
+
+                    scope.model.subStatus = true;
+
+                    var registerData = {
+                        username:scope.model.username,
+                        first_name:scope.model.first_name,
+                        last_name:scope.model.last_name,
+                        email:scope.model.email,
+                        token_facebook:scope.model.token_facebook,
+                        avatar_url:scope.model.avatar_url
+                    };
+
+                    var long = globalService.getStorageItem('longitude');
+                    var lati = globalService.getStorageItem('latitude');
+                    if (typeof long === "number") {
+                        registerData["longitude"] = long;
+                    }
+                    if (typeof lati === "number") {
+                        registerData["latitude"]  = lati;
+                    }
+                    //TODO: Password no debería ser obligatorio para actualizar.
+                    if (scope.model.password1) {
+                        registerData["password"]  = scope.model.password1;
+                        registerData["password2"] = scope.model.password2;
+                    }
+
+                    userDetail.updateUser($rootScope.uData.userId,registerData).then(function(data){
+                        scope.model.subText = "Datos Actualizados";
+                    },function(err){
+                        scope.model.subText = "Error "+err.status;
+                    });
+
+                };
+            }
+        };
+
+    }]);
+
 
     app.filter("genders", function() {
         return function(gender) {
@@ -214,8 +280,10 @@
 }(angular.module("KRAngular.uprofile", [
     'ui.router',
     'productsService',
+    'globalService',
     'userProductsService',
     'uTransactionsService',
+    'userDetail',
     'statesService',
     'racesService'
 ])));
