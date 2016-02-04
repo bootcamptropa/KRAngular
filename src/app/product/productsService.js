@@ -122,7 +122,7 @@ angular.module('productsService', [])
                     }
                     if(files){
                         angular.forEach(files,function(k,v){
-                            fd.append('upload_image',v);
+                            fd.append('upload_image',files[k]);
                         });
                     }
                     //fd.append('upload_image',files);
