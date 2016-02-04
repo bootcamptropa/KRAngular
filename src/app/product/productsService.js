@@ -121,7 +121,7 @@ angular.module('productsService', [])
                         fd.append(key,data[key]);
                     }
                     if(files){
-                        angular.forEach(file,function(k,v){
+                        angular.forEach(files,function(k,v){
                             fd.append('upload_image',v);
                         });
                     }
