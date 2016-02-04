@@ -24,10 +24,9 @@
                     resolve:{
                         load_data: (['globalService','$stateParams', '$q', '$log',
                             function (globalService, $stateParams, $q, $log) {
-                                $log.warn('App::ResolveData::');
+                                $log.info('App::ResolveData::');
 
                                 globalService.getGeolocalization().then(function(position){
-                                    $log.info('Recuperadas coordenadas');
                                     globalService.setStorageItem('latitude',position.coords.latitude);
                                     globalService.setStorageItem('longitude',position.coords.longitude);
                                 },function(err){
@@ -182,15 +181,19 @@
         $scope.ok = function () {
             $scope.actionMsg = 'Creando producto...';
             var file = $scope.myFile;
-            productsService.newProduct(data.product,file,geoData).then(function(data){
-                $scope.actionMsg = 'Product Updated!';
-                $scope.btnCancel = false;
-                $scope.btnClose = true;
-                $scope.btnSave = false;
-            },function(err){
-                $scope.actionMsg = 'Error al Crear Producto:: '+JSON.stringify(err);
-            });
-            //$uibModalInstance.close($scope.product);
+            if ($scope.productForm.$valid){
+                productsService.newProduct(data.product,file,geoData).then(function(data){
+                    $scope.actionMsg = 'Product Updated!';
+                    $scope.btnCancel = false;
+                    $scope.btnClose = true;
+                    $scope.btnSave = false;
+                },function(err){
+                    $scope.actionMsg = 'Error al Crear Producto:: '+JSON.stringify(err.data);
+                });
+                //$uibModalInstance.close($scope.product);
+            }else {
+                $scope.actionMsg = 'Rellene todos los campos requeridos.';
+            }
         };
         $scope.cancel = function () {
             $uibModalInstance.dismiss('cancel');

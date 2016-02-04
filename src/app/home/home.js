@@ -34,7 +34,7 @@
             $scope.maxSize = 4;
             $scope.bigCurrentPage = 1;
             $scope.currentPage = 1;
-            $scope.itemsPerPage = 20;
+            $scope.itemsPerPage = ITEMS_PER_PAGE;
 
             var latitude = globalService.getStorageItem('latitude');
             var longitude = globalService.getStorageItem('longitude');
@@ -67,7 +67,9 @@
             $scope.pageChanged = function() {
                 $log.log('Page changed to: ' + $scope.bigCurrentPage);
                 $scope.setPage($scope.bigCurrentPage);
+                $rootScope.domReady = true;
                 getProducts(race_search,null,latitude,longitude,distance_search,(($scope.bigCurrentPage - 1) * $scope.itemsPerPage));
+                $rootScope.domReady = false;
             };
         };
 

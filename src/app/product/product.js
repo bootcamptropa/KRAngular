@@ -178,8 +178,10 @@
         return function(boolVal) {
             if(boolVal) {
                 return "Si";
-            } else  {
+            } else if(!boolVal)  {
                 return "No";
+            } else {
+                return "";
             }
         };
     });

@@ -58,12 +58,10 @@ angular.module('cInterceptor', [])
                             }
                         },function(err){
                             $log.warn(err);
-                            alert('Ha ocurrido un error al intentar recuperar tu session');
                             var globalService = $injector.get('globalService');
                             globalService.clearStorage();
                         });
                     }else{
-                        alert('No estas identificado, disfruta de mas servicios si te identificas.');
                         //state.go('root.auth');
                     }
                 }else{

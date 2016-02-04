@@ -126,6 +126,9 @@ angular.module('productsService', [])
                         console.log(geodata);
                         fd.append('longitude',parseFloat(geodata.longitude));
                         fd.append('latitude',parseFloat(geodata.latitude));
+                    }else{
+                        fd.append('longitude',parseFloat(DEFAULT_LONGITUDE));
+                        fd.append('latitude',parseFloat(DEFAULT_LATITUDE));
                     }
 
                     this.api().save({},fd,function(data){
