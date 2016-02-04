@@ -55,21 +55,21 @@
             <li class="dropdown hidden-xs" uib-dropdown>
                 <div class="btn-group" uib-dropdown is-open="status.isopen3" style="margin-top:7px;">
                     <button id="single-button" type="button" class="btn btn-primary btnnavbar" uib-dropdown-toggle ng-disabled="disabled">
-                        Usuarios <i class="fa fa-user"></i>
+                        {{uData.userName?uData.userName:'Usuario'}} <i class="fa fa-user"></i>
                     </button>
                     <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
-                        <li ui-sref-active="active" role="menuitem">
+                        <li ng-if="!uData.isLogged" ui-sref-active="active" role="menuitem">
                             <a ui-sref="root.auth" ng-click="navCollapsed = !navCollapsed">
                                 <i class="fa fa-sign-in"></i>
                                 Identificarse</a>
                         </li>
-                        <li ui-sref-active="active" role="menuitem">
+                        <li ng-if="uData.isLogged" ui-sref-active="active" role="menuitem">
                             <a ui-sref="root.logout" ng-click="navCollapsed = !navCollapsed">
                                 <i class="fa fa-sign-out"></i>
                                 Salir</a>
                         </li>
-                        <li class="divider"></li>
-                        <li ui-sref-active="active" role="menuitem">
+                        <li ng-if="uData.isLogged" class="divider"></li>
+                        <li ng-if="uData.isLogged" ui-sref-active="active" role="menuitem">
                             <a ui-sref="root.uprofile" ng-click="navCollapsed = !navCollapsed">
                                 <i class="fa fa-user-md"></i>
                                 Area de usuario</a>

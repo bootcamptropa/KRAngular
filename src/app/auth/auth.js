@@ -176,7 +176,8 @@
                 $rootScope.uData.firstName=false;
                 $rootScope.uData.lastName=false;
                 $rootScope.uData.userId=false;
-                $rootScope.uData.userName='Identifícate';
+                $rootScope.uData.userName=false;
+                $rootScope.uData.isLogged=false;
 
                 globalService.removeStorage('wcookie');
                 globalService.removeStorage('wcookier');
