@@ -22,7 +22,9 @@ angular.module('userDetail', [])
                         },
                         put: {
                             timeout: 15000,
-                            method: 'PUT'
+                            method: 'PUT',
+                            transformRequest: angular.identity,
+                            headers: { 'Content-Type': undefined }
                         },
                         get: {
                             timeout: 15000,
