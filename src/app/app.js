@@ -200,7 +200,7 @@
         };
 
         $scope.close = function () {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss('close');
             $state.go($state.current, {}, {reload: true});
         };
 
