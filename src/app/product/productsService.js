@@ -121,10 +121,13 @@ angular.module('productsService', [])
                         fd.append(key,data[key]);
                     }
 
-                    var i = 0;
-                    for(i=0;i<files.length;i++){
-                        fd.append('upload_image',files[0]);
+                    if(files){
+                        var i = 0;
+                        for(i=0;i<files.length;i++){
+                            fd.append('upload_image',files[0]);
+                        }
                     }
+
 
                     //fd.append('upload_image',files);
                     if(geodata.latitude && geodata.longitude){
