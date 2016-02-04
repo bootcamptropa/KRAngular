@@ -34,7 +34,7 @@
             $scope.maxSize = 4;
             $scope.bigCurrentPage = 1;
             $scope.currentPage = 1;
-            $scope.itemsPerPage = 20;
+            $scope.itemsPerPage = ITEMS_PER_PAGE;
 
             var latitude = globalService.getStorageItem('latitude');
             var longitude = globalService.getStorageItem('longitude');
