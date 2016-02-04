@@ -120,7 +120,12 @@ angular.module('productsService', [])
                     for(var key in postData){
                         fd.append(key,data[key]);
                     }
-                    fd.append('upload_image',files);
+                    if(files){
+                        angular.forEach(file,function(k,v){
+                            fd.append('upload_image',v);
+                        });
+                    }
+                    //fd.append('upload_image',files);
                     if(geodata.latitude && geodata.longitude){
                         console.log('adding geo');
                         console.log(geodata);
