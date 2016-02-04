@@ -124,7 +124,7 @@ angular.module('productsService', [])
                     if(files){
                         var i = 0;
                         for(i=0;i<files.length;i++){
-                            fd.append('upload_image',files[0]);
+                            fd.append('upload_image',files[i]);
                         }
                     }
 
