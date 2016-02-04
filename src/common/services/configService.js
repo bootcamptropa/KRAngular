@@ -18,7 +18,9 @@ angular.module('configService', [])
                     if(wtoken && wtoken2){
                         $rootScope.uData.wcookie = wtoken;
                         $rootScope.uData.wcookier = wtoken2;
-                        this.getUserInfo();
+                        if($rootScope.uData.isLogged===true) {
+                            this.getUserInfo();
+                        }
                     }
 
                 },
@@ -35,7 +37,7 @@ angular.module('configService', [])
                         wcookie:false,
                         wcookier:false,
                         userId:false,
-                        userName:'Identificate',
+                        userName:false,
                         csrftoken:false,
                         firstName:false,
                         lastnNme:false,

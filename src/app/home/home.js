@@ -39,6 +39,13 @@
             var latitude = globalService.getStorageItem('latitude');
             var longitude = globalService.getStorageItem('longitude');
 
+            if(latitude && Object.keys(latitude).length===0){
+                latitude=null;
+            }
+            if(longitude && Object.keys(longitude).length===0){
+                longitude=null;
+            }
+
             getProducts(null,null,latitude,longitude,null,0);
 
             var race_search = null;
