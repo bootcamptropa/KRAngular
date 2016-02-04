@@ -224,12 +224,9 @@
                     scope.model.subStatus = true;
 
                     var registerData = {
-                        username:scope.model.username,
                         first_name:scope.model.first_name,
                         last_name:scope.model.last_name,
-                        email:scope.model.email,
-                        token_facebook:scope.model.token_facebook,
-                        avatar_url:scope.model.avatar_url
+                        email:scope.model.email
                     };
 
                     var long = globalService.getStorageItem('longitude');
@@ -240,13 +237,23 @@
                     if (typeof lati === "number") {
                         registerData["latitude"]  = lati;
                     }
-                    //TODO: Password no debería ser obligatorio para actualizar.
+
                     if (scope.model.password1) {
                         registerData["password"]  = scope.model.password1;
                         registerData["password2"] = scope.model.password2;
                     }
 
-                    userDetail.updateUser($rootScope.uData.userId,registerData).then(function(data){
+                    var fd = new FormData();
+                    for(var key in registerData){
+                        fd.append(key,registerData[key]);
+                    }
+                    if(scope.myFile) {
+                        var files = scope.myFile;
+                        fd.append('upload_image',files);
+                        fd.append("avatar_url",'https://s3.amazonaws.com/walladog/'+scope.model.username+'.jpeg');
+                    }
+
+                    userDetail.updateUser($rootScope.uData.userId,fd).then(function(data){
                         scope.model.subText = "Datos Actualizados";
                     },function(err){
                         scope.model.subText = "Error "+err.status;
