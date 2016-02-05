@@ -86,6 +86,13 @@
                 userProductsService.getUserProducts().then(function(data){
                     var filtered = $filter('filter')(data,{state:'Publicado'});
                     $scope.modelSelling = filtered;
+                    $scope.modelSelling.delConf = [];
+                    for(var key in filtered){
+                        if(typeof filtered[key].id === "number") {
+                            $scope.modelSelling.delConf[filtered[key].id]=true;
+                        }
+                    }
+                    $log.info("modelSelling:: ",$scope.modelSelling);
                     $scope.upLoading = false;
                 },function(err){
                     $log.info(err);
@@ -138,7 +145,7 @@
             init();
         }]);
 
-    app.directive('productListUprofile',['productsService','$uibModal','$log',function(productsService,$uibModal,$log){
+    app.directive('productListUprofile',['productsService','$uibModal','$log','$state',function(productsService,$uibModal,$log,$state){
         return {
             restrict: "AE",
             templateUrl: "uprofile/productlistUprofile.tpl.html",
@@ -175,6 +182,26 @@
                         });
                     },function(err){
 
+                    });
+                };
+                scope.deleteProdConfirm = function(id_product) {
+                    if(!scope.model.delConf) {
+                        scope.model.delConf=[];
+                    }
+                    scope.model.delConf[id_product] = false;
+                };
+                scope.deleteProductCancel = function(id_product) {
+                    if(!scope.model.delConf) {
+                        scope.model.delConf=[];
+                    }
+                    scope.model.delConf[id_product] = true;
+                };
+                scope.confirmDeleteProduct = function(id_product) {
+                    $log.info("id_product:: ",id_product);
+                    productsService.deleteProduct(id_product).then(function(data){
+                        $state.go('root.uprofile');
+                    },function(err){
+                        $log.info("deleteProduct",err);
                     });
                 };
             }
