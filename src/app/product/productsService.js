@@ -30,6 +30,10 @@ angular.module('productsService', [])
                             timeout: 15000,
                             method: 'GET'
                         },
+                        delete: {
+                            timeout: 15000,
+                            method: 'DELETE'
+                        },
                         getOne: {
                             timeout: 15000,
                             method: 'GET'
@@ -89,6 +93,15 @@ angular.module('productsService', [])
 
                     var def = $q.defer();
                     this.api(id+'/').put({},postData,function(data){
+                        def.resolve(data);
+                    },function(err){
+                        def.reject(err);
+                    });
+                    return def.promise;
+                },
+                deleteProduct: function(id){
+                    var def = $q.defer();
+                    this.api(id+'/').delete({},{},function(data){
                         def.resolve(data);
                     },function(err){
                         def.reject(err);
