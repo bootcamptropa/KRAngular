@@ -249,7 +249,7 @@
                     }
                     if(scope.myFile) {
                         var files = scope.myFile;
-                        fd.append('upload_image',files);
+                        fd.append('upload_image',files[0]);
                         fd.append("avatar_url",'https://s3.amazonaws.com/walladog/'+scope.model.username+'.jpeg');
                     }
 
