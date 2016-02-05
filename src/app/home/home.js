@@ -39,10 +39,10 @@
             var latitude = globalService.getStorageItem('latitude');
             var longitude = globalService.getStorageItem('longitude');
 
-            if(latitude && Object.keys(latitude).length===0){
+            if (typeof latitude === 'object') {
                 latitude=null;
             }
-            if(longitude && Object.keys(longitude).length===0){
+            if (typeof longitude === 'object') {
                 longitude=null;
             }
 

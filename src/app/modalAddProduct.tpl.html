@@ -14,12 +14,11 @@
                         <input type="text" name="name" ng-model="data.product.name" class="form-control" id="wdname" required/>
                         <p ng-show="productForm.name.$invalid && !productForm.name.$pristine" class="help-block">El nombre es obligatorio.</p>
                     </div>
-                    <div class="form-group" ng-class="{ 'has-error' : productForm.description.$invalid && !productForm.description.$pristine }">
+                    <div class="form-group">
                         <label for="wdtextarea">
-                            * Descripción
+                            Descripción
                         </label>
-                        <textarea rows="3" cols="4" name="description" ng-model="data.product.description" class="form-control" id="wdtextarea" required>{{data.product.description}}</textarea>
-                        <p ng-show="productForm.description.$invalid && !productForm.description.$pristine" class="help-block">La descripción es obligatoria.</p>
+                        <textarea rows="3" cols="4" name="description" ng-model="data.product.description" class="form-control" id="wdtextarea">{{data.product.description}}</textarea>
                     </div>
 
                     <div class="row">
@@ -71,7 +70,7 @@
 
                             <div class="form-group">
                                 <label for="wdsterile">
-                                    Esterilizado: <span class="label label-default">{{data.product.sterile|boolVal}}</span>
+                                    Esterilizado:
                                 </label>
                                 <select ng-model="data.product.sterile" class="form-control" id="wdsterile" ng-disabled="data.product.category!=1">
                                     <option value="true" selected>Si</option>
@@ -83,7 +82,7 @@
                         <div class="col-xs-6">
                             <div class="form-group">
                                 <label for="wdgender">
-                                    Genero : <span class="label label-default">{{data.product.gender|genders}}</span>
+                                    Genero :
                                 </label>
                                 <select ng-model="data.product.gender" class="form-control" id="wdgender" ng-disabled="data.product.category!=1">
                                     <option ng-repeat="gen in data.loaddata.gender" value="{{gen.cod}}">{{gen.name}}</option>

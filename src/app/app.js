@@ -62,7 +62,7 @@
         configService.setUpInitVars();
         configService.setUpMessages();
 
-        if($state.current.name==='root.home' || $state.current.name===''){
+        if(($state.current.name==='root.home' || $state.current.name==='') && $rootScope.uData.isLogged === true){
             $rootScope.showCameraIcon = true;
         }
 
@@ -85,7 +85,7 @@
         $rootScope.$on('$stateChangeSuccess',
             function(event, toState, toParams, fromState, fromParams){
                 //$log.warn('Fired success');
-                if(toState.name==="root.home"){
+                if(toState.name==="root.home" && $rootScope.uData.isLogged === true){
                     $rootScope.showCameraIcon = true;
                 }else{
                     $rootScope.showCameraIcon = false;
