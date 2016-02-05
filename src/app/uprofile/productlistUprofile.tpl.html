@@ -1,0 +1,48 @@
+
+<table class="table table-condensed table-hover">
+    <thead>
+    <tr>
+        <th>
+            #
+        </th>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Fecha Creación
+        </th>
+        <th>
+            Precio
+        </th>
+        <th>
+            Acciones
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat-start="item in model">
+            <td class="text-left">
+                {{item.id}}
+            </td>
+            <td class="text-left">
+                {{item.name}}
+            </td>
+            <td class="text-left">
+                {{item.created_at|date}}
+            </td>
+            <td class="text-left">
+                {{item.price|currency:"€":2}}
+            </td>
+            <td class="text-left">
+                <button ng-show="model.length" class="btn btn-info btn-xs" ng-click="editProductModal(item.id)"><i class="fa fa-edit"></i></button>
+                <button ng-show="model.length" class="btn btn-danger btn-xs" ng-click="deleteProdConfirm(item.id)"><i class="fa fa-trash-o"></i></button>
+            </td>
+        </tr>
+        <tr ng-repeat-end uib-collapse="model.delConf[item.id] === undefined || model.delConf[item.id]">
+            <td class="text-left" colspan="5">
+                <button style="float: right;" class="btn btn-warning" type="button" ng-click="deleteProductCancel(item.id)"><i class="fa fa-ban"></i> Cancel</button>
+                <button style="float: right;" class="btn btn-success" type="button" ng-click="confirmDeleteProduct(item.id)"><i class="fa fa-save"></i> Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

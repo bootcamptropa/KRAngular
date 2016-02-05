@@ -26,16 +26,16 @@
  */
 
 @font-face {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Roboto Regular'), local('Roboto-Regular'), url(fonts/Roboto-Regular.woff) format('woff');
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Regular'), local('Roboto-Regular'), url(fonts/Roboto-Regular.woff) format('woff');
 }
 
 
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
- * all the submodules and components we are using. 
+ * all the submodules and components we are using.
  *
  * TODO: In a later version of this boilerplate, I'd like to automate this.
  */
@@ -47,25 +47,25 @@
 @import '../app/product/product.less';
 
 .container.menu {
-    margin-top: 40px;
+  margin-top: 40px;
 }
 
 .container.footer {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 
 //Animate UI Router
-/* Have to set height explicity on ui-view 
+/* Have to set height explicity on ui-view
 to prevent collapsing during animation*/
 
 .animate-container[ui-view]{
-    height: 100%;
+  height: 100%;
 }
 
 
 .ui-view-container {
-    position: relative;
+  position: relative;
 }
 
 /*[ui-view].ng-enter, [ui-view].ng-leave {
@@ -79,45 +79,50 @@ to prevent collapsing during animation*/
 }*/
 
 [ui-view].ng-enter {
-    opacity: 0;
-    -webkit-transform:scale3d(0.5, 0.5, 0.5);
-    -moz-transform:scale3d(0.5, 0.5, 0.5);
-    transform:scale3d(0.5, 0.5, 0.5);
+  opacity: 0;
+  -webkit-transform:scale3d(0.5, 0.5, 0.5);
+  -moz-transform:scale3d(0.5, 0.5, 0.5);
+  transform:scale3d(0.5, 0.5, 0.5);
 }
 
 [ui-view].ng-enter-active {
-    opacity: 1;
-    -webkit-transform:scale3d(1, 1, 1);
-    -moz-transform:scale3d(1, 1, 1);
-    transform:scale3d(1, 1, 1);
+  opacity: 1;
+  -webkit-transform:scale3d(1, 1, 1);
+  -moz-transform:scale3d(1, 1, 1);
+  transform:scale3d(1, 1, 1);
 }
 
 [ui-view].ng-leave {
-    opacity: 10;
-    display:none;
-    /*padding-left: 0px;*/
-    -webkit-transform:translate3d(0, 0, 0);
-    -moz-transform:translate3d(0, 0, 0);
-    transform:translate3d(0, 0, 0);
+  opacity: 10;
+  display:none;
+  /*padding-left: 0px;*/
+  -webkit-transform:translate3d(0, 0, 0);
+  -moz-transform:translate3d(0, 0, 0);
+  transform:translate3d(0, 0, 0);
 }
 
+.dropdown-menu{
+  max-height: 300px; /*Provide height in pixels or in other units as per your layout*/
+  overflow-y: auto; /*Provide an auto overflow to diaply scroll*/
+}
 
 /* Nav bar center */
 .nav.nav-center {
-    display: inline-block;
-    left: 0;
-    right: 0;
-    text-align:center;
-    width:65%;
+  display: inline-block;
+  left: 0;
+  right: 0;
+  text-align:center;
+  width:65%;
 }
 .nav.nav-center li,.nav.nav-center li  a{
-  display:inline;float:none;line-height:40px;
+  float:none;
+  line-height:40px;
 }
 /* fix for navbar fixed */
 
 /* fix nav-bar size */
 body {
-    padding-top: 70px;
+  padding-top: 70px;
 }
 
 .navbuttons {
@@ -134,14 +139,38 @@ body {
 */
 
 .btnnavbar {
-    color: #fff;
-    background-color: #889ca3;
-    border-color: #49ebe0;
+  color: #fff;
+  background-color: #889ca3;
+  border-color: #49ebe0;
+}
+
+.btnnavbarsuccess {
+  color: #fff;
+  background-color: #05a32d;
+  border-color: #49ebe0;
+}
+
+.btnnavbarclean {
+  color: #fff;
+  background-color: #d43f3a;
+  border-color: #49ebe0;
 }
 
 .btnnavbar:hover {
   color: #fff;
   background-color: #889ca3;
+  border-color: #49ebe0;
+}
+
+.btnnavbarsuccess:hover {
+  color: #fff;
+  background-color: #4aa363;
+  border-color: #49ebe0;
+}
+
+.btnnavbarclean:hover {
+  color: #fff;
+  background-color: #d9534f;
   border-color: #49ebe0;
 }
 
@@ -151,29 +180,42 @@ body {
 
 
 /* deck grid */
+.container .row div {
+  /*margin: 0 20px 19px 0;
+  border: 1px solid;*/
+}
+
 .deckgrid {
-    margin:1px auto;
-    padding:10px;
-    width:1000px;
+  margin:1px auto;
+  padding:10px;
+  width:1000px;
 }
 
 .deckgrid[deckgrid]::before {
-    content: '5 .column.size-1-5';
-    font-size: 0;
-    visibility:hidden;
+  content: '5 .column.size-1-5';
+  font-size: 0;
+  visibility:hidden;
 }
 
 .deckgrid .column {
-    float:left;
+  float:left;
 }
 
 .photo {
   //background:#fff url(images/spinner.gif) center 30px no-repeat;
   border:1px solid rgba(0, 0, 0, .15);
   border-radius:6px;
-  margin:0 10px 10px 0;
+  margin:0 20px 20px 0;
   position:relative;
-  width:201px;
+  width:220px;
+  display: inline-block;
+  text-align: left;
+  cursor: pointer;
+  transition: box-shadow .5s;
+}
+
+.photo:hover {
+  box-shadow: 1px 1px 12px 0px #515151;
 }
 
 .photo .photo-index {
@@ -194,17 +236,71 @@ body {
   min-height:60px;
 }
 
-.photo .photo-description {
+.photo .img-circle {
   padding:5px;
+  transition: all 0.5s;
+  -webkit-transition: 0.5s ease;
+}
+
+.img-circle:hover {
+  transform: rotate(360deg);
+  -webkit-transform : rotate(360deg);
+}
+
+.photo .photo-name, .photo .photo-category {
+  padding: 5px;
   font-size:9px;
+  float: left;
+  width: 100%;
+  font-size: 14px;
+}
+
+.photo .photo-category{
+  color: #b5b5b5;
+}
+
+.photo .photo-name{
+  font-weight: bold;
+  color: #6a6a6a;
 }
 
 .photo .photo-price {
-  padding:5px;
+  padding: 5px;
+  width: 100%;
+  height: 22px;
+}
+
+.photo .photo-price p{
+  float: left;
+  font-size: 16px;
 }
 
 .photo .photo-author {
   padding:5px;
+  display:inline-block;
+  width:95%;
+}
+
+.photo .photo-author .avatar{
+  width:20%;
+  float:left;
+}
+
+.photo .photo-author .seller{
+  float:left;
+  width:60%;
+  margin-left: 15px;
+}
+
+.photo .photo-author .seller .name{
+  font-size: 14px;
+  font-weight: bold;
+  color: #6a6a6a;
+}
+
+.photo .photo-author .seller .products{
+  font-size: 12px;
+  color: #b5b5b5;
 }
 
 .circleBase {
@@ -267,9 +363,17 @@ body {
   color: #0d12eb;
 }
 
+/* pagination */
+.pagination{
+  display: flex;
+  margin: 0 auto;
+  margin-top:15px;
+}
 
-
-
+.msg-fields_required{
+  float: right;
+  color:#f00;
+}
 
 
 
@@ -334,6 +438,111 @@ only screen and (max-width : 480px) {
   .deckgrid[deckgrid]::before {
     content: '2 .column.size-1-2';
   }
+}
+
+
+
+
+
+
+/* Animation loading */
+.cssload-container{
+  position:relative;
+}
+
+.cssload-whirlpool,
+.cssload-whirlpool::before,
+.cssload-whirlpool::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1px solid rgb(204,204,204);
+  border-left-color: rgb(0,0,0);
+  border-radius: 974px;
+  -o-border-radius: 974px;
+  -ms-border-radius: 974px;
+  -webkit-border-radius: 974px;
+  -moz-border-radius: 974px;
+}
+
+.cssload-whirlpool {
+  margin: -24px 0 0 -24px;
+  height: 49px;
+  width: 49px;
+  animation: cssload-rotate 1150ms linear infinite;
+  -o-animation: cssload-rotate 1150ms linear infinite;
+  -ms-animation: cssload-rotate 1150ms linear infinite;
+  -webkit-animation: cssload-rotate 1150ms linear infinite;
+  -moz-animation: cssload-rotate 1150ms linear infinite;
+}
+
+.cssload-whirlpool::before {
+  content: "";
+  margin: -22px 0 0 -22px;
+  height: 43px;
+  width: 43px;
+  animation: cssload-rotate 1150ms linear infinite;
+  -o-animation: cssload-rotate 1150ms linear infinite;
+  -ms-animation: cssload-rotate 1150ms linear infinite;
+  -webkit-animation: cssload-rotate 1150ms linear infinite;
+  -moz-animation: cssload-rotate 1150ms linear infinite;
+}
+
+.cssload-whirlpool::after {
+  content: "";
+  margin: -28px 0 0 -28px;
+  height: 55px;
+  width: 55px;
+  animation: cssload-rotate 2300ms linear infinite;
+  -o-animation: cssload-rotate 2300ms linear infinite;
+  -ms-animation: cssload-rotate 2300ms linear infinite;
+  -webkit-animation: cssload-rotate 2300ms linear infinite;
+  -moz-animation: cssload-rotate 2300ms linear infinite;
+}
+
+
+
+@keyframes cssload-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes cssload-rotate {
+  100% {
+    -o-transform: rotate(360deg);
+  }
+}
+
+@-ms-keyframes cssload-rotate {
+  100% {
+    -ms-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes cssload-rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes cssload-rotate {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+
+/** override dropdonw **/
+
+.dropdown-menu{
+  max-height: 300px; /*Provide height in pixels or in other units as per your layout*/
+  overflow-y: auto; /*Provide an auto overflow to diaply scroll*/
+  width: 200px;
+}
+
+.dropdown-menu li {
+  padding-left: 5px;
 }
 
 

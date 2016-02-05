@@ -1,0 +1,129 @@
+<div class="modal-header">
+    <h3 class="modal-title">Añadir Producto</h3>
+</div>
+<div class="modal-body">
+    <form role="form" name="productForm">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="{ 'has-error' : productForm.name.$invalid && !productForm.name.$pristine }">
+                        <label for="wdname">
+                            * Nombre
+                        </label>
+                        <input type="text" name="name" ng-model="data.product.name" class="form-control" id="wdname" required/>
+                        <p ng-show="productForm.name.$invalid && !productForm.name.$pristine" class="help-block">El nombre es obligatorio.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="wdtextarea">
+                            Descripción
+                        </label>
+                        <textarea rows="3" cols="4" name="description" ng-model="data.product.description" class="form-control" id="wdtextarea">{{data.product.description}}</textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6">
+
+                            <div class="form-group" ng-class="{ 'has-error' : productForm.price.$invalid && !productForm.price.$pristine }">
+                                <label for="wdprice">
+                                    * Precio
+                                </label>
+                                <input type="number" name="price" ng-model="data.product.price" class="form-control" id="wdprice" step="0.10" required/>
+                                <p ng-show="productForm.price.$invalid && !productForm.price.$pristine" class="help-block">El precio debe ser un número.</p>
+                                <p ng-show="!productForm.price.$pristine && productForm.price.$error.required" class="help-block">El precio es obligatorio.</p>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group" ng-class="{ 'has-error' : productForm.category.$invalid && !productForm.category.$pristine }">
+                                <label for="wdcategories">
+                                    * Categoria :
+                                </label>
+                                <select name="category" ng-model="data.product.category" class="form-control" id="wdcategories" required>
+                                    <option ng-repeat="cat in data.loaddata.categories" value="{{cat.id}}">{{cat.name}}</option>
+                                </select>
+                                <p ng-show="productForm.category.$invalid && !productForm.category.$pristine" class="help-block">La categoría es obligatoria.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6">
+
+                            <div class="form-group">
+                                <label for="wdraza">
+                                    * Raza :
+                                </label>
+                                <select ng-model="data.product.race" name="race" class="form-control form-inline" id="wdraza" ng-disabled="data.product.category!=1" ng-required="data.product.category==1">
+                                    <option ng-repeat="race in data.loaddata.races | orderBy:'name'" value="{{race.id}}">{{race.name}}</option>
+                                </select>
+                                <p ng-show="data.product.category == 1 && productForm.race.$invalid && !productForm.race.$pristine" class="help-block">La raza es obligatoria.</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-xs-6">
+
+                            <div class="form-group">
+                                <label for="wdsterile">
+                                    Esterilizado:
+                                </label>
+                                <select ng-model="data.product.sterile" class="form-control" id="wdsterile" ng-disabled="data.product.category!=1">
+                                    <option value="true" selected>Si</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label for="wdgender">
+                                    Genero :
+                                </label>
+                                <select ng-model="data.product.gender" class="form-control" id="wdgender" ng-disabled="data.product.category!=1">
+                                    <option ng-repeat="gen in data.loaddata.gender" value="{{gen.cod}}">{{gen.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Images">
+                            Seleccionas tus fotos:
+                        </label>
+                        <div class="row" style="margin-top:3px;">
+                            <div class="col-xs-2"><img src="/assets/logos/walladogt.png" class="img-responsive" width="35" height="35"></div>
+                            <div class="col-xs-10">
+                                <!--<input type="file" multiple ng-model="data.uploadFiles" file-model="data.uploadFiles" id="uploadFiles" style="margin-top:2px;" />-->
+                                <input type="file" multiple file-model="myFile" fileModel="myFile" id="Images"/>
+                                <pre>{{myFile}}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="form-group">
+        <label class="msg-fields_required">
+            * Campos obligatorios.
+        </label>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="row">
+        <div class="col-xs-6">
+            {{actionMsg}}
+        </div>
+        <div class="col-xs-6">
+            <button class="btn btn-success" type="button" ng-click="ok()" ng-if="btnSave" ng-disabled="productForm.$invalid"><i class="fa fa-save"></i> Guardar</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()" ng-if="btnCancel"><i class="fa fa-ban"></i> Cancel</button>
+            <button class="btn btn-success" type="button" ng-click="close()" ng-if="btnClose"><i class="fa fa-times-circle-o"></i> Cerrar</button>
+        </div>
+    </div>
+</div>

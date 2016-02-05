@@ -9,9 +9,13 @@ angular.module('productService', [])
                         if (!extra_route) {
                             extra_route = '';
                         }
-                        return $resource(API_URL + '/product' + extra_route, {}, {
+
+                        // http://api.walladog.com/api/1.0/products/1
+                        return $resource(API_URL  + extra_route, {}, {
+
                             query: {
-                                timeout: 15000
+                                timeout: 15000,
+                                isArray: true
                             },
                             save: {
                                 timeout: 15000,
@@ -19,7 +23,13 @@ angular.module('productService', [])
                             },
                             get: {
                                 timeout: 15000,
-                                method: 'GET'
+                                method: 'GET',
+                                isArray: true
+                            },
+                            getObject: {
+                                timeout: 15000,
+                                method: 'GET',
+                                isArray:false
                             },
                             put: {
                                 timeout: 15000,
@@ -27,11 +37,56 @@ angular.module('productService', [])
                             }
                         });
                     },
+                    getAction: function (race,category,lat,lon,distance) {
+                        var def = $q.defer();
+                        var paramList = {};
+                        if (race){
+                            paramList.race = race;
+                        }
+                        if (category){
+                            paramList.category = category;
+                        }
+                        if (lat){
+                            paramList.lat = lat;
+                        }
+                        if (lon){
+                            paramList.lon = lon;
+                        }
+                        if (distance){
+                            paramList.distance = distance;
+                        }
+
+                        this.api('/products/').get(paramList, {}, function (data) {
+                            def.resolve(data);
+                        }, function (err) {
+                            def.reject(err);
+                        });
+                        return def.promise;
+                    },
+                    getProduct: function (productId) {
+                        var def = $q.defer();
+                        this.api('/products/'+productId+"/").get({}, {}, function (data) {
+                            def.resolve(data);
+                        }, function (err) {
+                            def.reject(err);
+                        });
+                        return def.promise;
+                    },
+                    saveTransaction: function(idProduct){
+                        var postData = {
+                            product: idProduct
+                        };
+                        var def = $q.defer();
+                        this.api('/transactions/').save({},postData,function(data){
+                            def.resolve(data);
+                        },function(err){
+                            def.reject(err);
+                        });
+                        return def.promise;
+                    },
                     getCustomer: function () {
                         var def = $q.defer();
-                        this.api('?json=%5BJSON-code-to-validate%5D').get({}, {}, function (data) {
-                            $log.warn('Api::data:: ');
-                            $log.warn(data);
+                        this.api().get({}, {}, function (data) {
                             def.resolve(data);
                         }, function (err) {
                             def.reject(err);

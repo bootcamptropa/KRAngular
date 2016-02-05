@@ -1,15 +1,15 @@
 /* 
  * Api Test Módule
  */
-angular.module('apitestService', [])
-        .factory('apitestService', ['$resource', '$q', '$log',
+angular.module('uTransactionsService', [])
+        .factory('uTransactionsService', ['$resource', '$q', '$log',
             function ($resource, $q, $log) {
                 return {
                     api: function (extra_route) {
                         if (!extra_route) {
                             extra_route = '';
                         }
-                        return $resource(API_URL + '/transactions/' + extra_route, {}, {
+                        return $resource(API_URL + '/transactions/' + extra_route , {}, {
                             stripTrailingSlashes: false,
                             query: {
                                 timeout: 15000,
@@ -20,6 +20,10 @@ angular.module('apitestService', [])
                                 timeout: 15000,
                                 method: 'POST'
                             },
+                            put: {
+                                timeout: 15000,
+                                method: 'PUT'
+                            },
                             get: {
                                 timeout: 15000,
                                 method: 'GET',
@@ -27,53 +31,31 @@ angular.module('apitestService', [])
                             }
                         });
                     },
-                    getAction: function () {
+                    getTransactions: function () {
                         //Service action with promise resolve (then)
                         var def = $q.defer();
                         this.api().get({}, {}, function (data) {
-                            $log.warn('Api::data:: ');
-                            $log.warn(data);
-
                             def.resolve(data);
                         }, function (err) {
                             def.reject(err,def.promise);
                         });
                         return def.promise;
                     },
-                    postAction: function () {
-                        //Service action with promise resolve (then)
+                    updateTransaction: function(id_transaction,postData){
                         var def = $q.defer();
-                        this.api().save({}, {}, function (data) {
-                            $log.warn('Api::data:: ');
-                            $log.warn(data);
+                        this.api(id_transaction).put({}, postData, function (data) {
                             def.resolve(data);
                         }, function (err) {
                             def.reject(err);
                         });
                         return def.promise;
                     },
-                    testFunction: function () {
-                        alert('testFunction');
-                    },
-                    postTransaction: function(postData){
+                    postTransaction: function (id_product) {
                         var def = $q.defer();
                         var dataPost = {
-                            product:postData
+                            product:id_product
                         };
                         this.api().save({}, dataPost, function (data) {
-                            $log.warn('Api::data:: ');
-                            $log.warn(data);
-                            def.resolve(data);
-                        }, function (err) {
-                            def.reject(err);
-                        });
-                        return def.promise;
-                    },
-                    getTransactions: function(){
-                        var def = $q.defer();
-                        this.api().get({}, {}, function (data) {
-                            $log.warn('Api::data:: ');
-                            $log.warn(data);
                             def.resolve(data);
                         }, function (err) {
                             def.reject(err);

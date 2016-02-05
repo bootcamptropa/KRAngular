@@ -36,11 +36,12 @@
 
     <body>
         <div ui-view="header" class=""></div>
+        <div ui-view="global" class=""></div>
         <div class="container-fluid" style="text-align: center;width:99%;">
             <div ui-view="container" class="" style="text-align: center;"></div>
         </div>
         <div ui-view="footer" class="" style="margin-top:20px"></div>
-        <div class="circleBase type1" style="cursor:pointer;" ng-show="showCameraIcon" ui-sref="root.addproduct">
+        <div class="circleBase type1" style="cursor:pointer;" ng-show="showCameraIcon" ng-click="addProductModal()">
             <i class="fa fa-shopping-cart fa-2x" style="margin-left:8px;margin-top:8px;color: #ffffff;float:left;"></i>
         </div>
     </body>

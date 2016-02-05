@@ -1,120 +1,109 @@
-<div class="row-fluid">
-    <div class="col-md-12 text-center">
-        <img src="assets/logos/walladogt.png" class="img-responsive" style="width:60px;margin:0 auto;">
-        <h4>Bienvenido<br></h4>
+<div class="container-fluid" ng-show="domReady">
+    <div class="row">
+        <div class="col-xs-12">
+
+        </div>
     </div>
-</div>
-
-
-
-<p>&nbsp;</p>
-
-<div class="row-fluid">
-    <div class="col-md-6">
-        <div class="col-md-12">
-
-            <div class="row-fluid">
-                <div class="col-md-12">
-                    <button type="button" class="btn btn-primary" id="login" ng-click="login()">
-                        <i class="fa fa-facebook-official"></i> Entrar con Facebook
-                    </button>
-                </div>
-            </div>
-
-            <p>&nbsp;</p>
-
-            <div class="row-fluid">
-                <div class="col-md-12">
-                    <form role="form">
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-4">
+            <div class="list-group">
+                <a href="#" class="list-group-item active">IDENTIFICATE <i class="fa fa-sign-in"></i></a>
+                <form>
+                    <div class="list-group-item">
+                        <p class="list-group-item-text">
                         <div class="form-group">
 
                             <label for="exampleInputEmail1">
-                                Tu Email
+                                Username
                             </label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" />
+                            <input type="text" ng-model="username" class="form-control" id="exampleInputEmail1" ng-keypress="onKeyPressLogin($event)" />
                         </div>
                         <div class="form-group">
 
                             <label for="exampleInputPassword1">
                                 Clave
                             </label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" />
+                            <input type="password" ng-model="password" class="form-control" id="exampleInputPassword1" ng-keypress="onKeyPressLogin($event)" />
                         </div>
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" /> Permanecer identificado
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-info">
-                            <i class="fa fa-sign-in"></i> Entrar
+                        </p>
+                    </div>
+                    <a class="list-group-item active">
+                        <button type="button" ng-click="doLoginOAuth2()" class="btn btn-info btn-block">
+                            <i class="fa fa-paw"></i> Conectar a Walladog
                         </button>
-                        <p>&nbsp;</p>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="row-fluid hidden-lg hidden-md">
-    <div class="col-md-6">
-        <hr>
-    </div>
-</div>
-
-
-<div class="row-fluid">
-    <div class="col-md-6">
-
-        <div class="row-fluid">
-            <div class="col-md-12">
-                <button type="button" class="btn btn-primary" id="login" ng-click="login()">
-                    <i class="fa fa-facebook-official"></i> Regístrate con Facebook
-                </button>
-            </div>
-        </div>
-
-        <p>&nbsp;</p>
-
-        <div class="row-fluid">
-            <div class="col-md-12">
-                <form role="form">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">
-                            Tu Email
-                        </label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" />
-                        <input type="email" placeholder="Repite tu email" style="margin-top:2px;" class="form-control" id="exampleInputEmail1" />
-                    </div>
-                    <div class="form-group">
-
-                        <label for="exampleInputEmail1">
-                            Nombre
-                        </label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" />
-                        <label for="exampleInputEmail1">
-                            Apellidos
-                        </label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" />
-                    </div>
-                    <div class="form-group">
-
-                        <label for="exampleInputPassword1">
-                            Clave
-                        </label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" />
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" /> Permanecer identificado
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn-info">
-                        <i class="fa fa-sign-in"></i> Entrar
-                    </button>
+                        <div class="alert alert-info" role="alert" ng-click="clearErrors()" ng-show="err2.visible" style="margin-top:2px;">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only">Error:</span>{{err2.error}}
+                            <br>
+                            <pre ng-show="err2.error_description">{{err2.error_description}}</pre>
+                            <sub style="cursor:pointer;">(click para cerrar)</sub>
+                        </div>
+                    </a>
                 </form>
             </div>
+        </div>
+        <div class="col-md-4">
+            <div class="list-group">
+                <a href="#" class="list-group-item active">REGISTRATE <i class="fa fa-user"></i></a>
+                <form>
+                    <div class="list-group-item">
+                        <p class="list-group-item-text">
+                        <div class="form-group">
+                            <label for="registerInputEmail">
+                                Tu Email
+                            </label>
+                            <input type="email" ng-model="remail" class="form-control" id="registerInputEmail" ng-keypress="onKeyPressRegister($event)"/>
+                            <input type="email2" ng-model="remail2" placeholder="Repite tu email" style="margin-top:2px;" class="form-control" id="registrerInputEmail2" ng-keypress="onKeyPressRegister($event)" />
+                        </div>
+                        <div class="form-group">
+                            <label for="registerInputUsername">
+                                Tu Username
+                            </label>
+                            <input type="text" ng-model="rusername" class="form-control" id="registerInputUsername" ng-keypress="onKeyPressRegister($event)"/>
+                        </div>
+                        <div class="form-group">
+
+                            <label for="registerInputFirstname">
+                                Nombre
+                            </label>
+                            <input type="text" ng-model="rfirstname" class="form-control" id="registerInputFirstname" ng-keypress="onKeyPressRegister($event)" />
+                            <label for="registerInputLastname">
+                                Apellidos
+                            </label>
+                            <input type="text" ng-model="rlastname" class="form-control" id="registerInputLastname" ng-keypress="onKeyPressRegister($event)" />
+                        </div>
+                        <div class="form-group">
+
+                            <label for="exampleInputPassword1">
+                                Clave
+                            </label>
+                            <input type="password" ng-model="rpassword" class="form-control" ng-keypress="onKeyPressRegister($event)"/>
+                            <input type="password" ng-model="rpassword2" class="form-control" ng-keypress="onKeyPressRegister($event)" style="margin-top:2px;" placeholder="Repite tu clave"/>
+                        </div>
+                    </div>
+                    <a class="list-group-item active">
+                        <button type="button" ng-click="doRegister()" class="btn btn-info btn-block">
+                            <i class="fa fa-paw"></i> Registrarse en Walladog
+                        </button>
+                        <div class="alert alert-info" role="alert" ng-click="clearErrors()" ng-show="err.visible" style="margin-top:2px;">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only">Error:</span>{{err.error}}
+                            <br>
+                            <pre ng-show="err.error_description">{{err.error_description}}</pre>
+                            <sub style="cursor:pointer;">(click para cerrar)</sub>
+                        </div>
+                    </a>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-2">
         </div>
     </div>
 </div>

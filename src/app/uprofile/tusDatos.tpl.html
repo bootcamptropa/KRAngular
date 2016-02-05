@@ -1,0 +1,40 @@
+<form class="form-group-sm" style="margin-bottom: 60px">
+    <div class="row-fluid">
+        <div id="seller-product" class="col-md-12 borderradius" style="background: none;">
+            <div class="row-fluid borderradius" style="text-align:left;background-color: transparent;">
+                <div class="col-md-2" style="float:left;"><img ng-src="{{model.avatar_url}}" width="50" height="50" class="img-circle"></div>
+                <div class="col-md-10 title" style="float:left;font-size: x-large">{{model.username}}</div> <br><br><br>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="firstName" style="float: left"> Nombre</label>
+        <input type="text" class="form-control" id="firstName" placeholder="Nombre" ng-model="model.first_name">
+    </div>
+    <div class="form-group">
+        <label for="lastName" style="float: left">Apellidos</label>
+        <input type="text" class="form-control" id="lastName" placeholder="Apellidos" ng-model="model.last_name">
+    </div>
+    <div class="form-group">
+        <label for="email" style="float: left">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="example@example.com" ng-model="model.email">
+    </div>
+    <div class="form-group">
+        <label for="inputPassword1" style="float: left">Nuevo password</label>
+        <input type="password" class="form-control" id="inputPassword1" ng-model="model.password1" placeholder="Password">
+    </div>
+    <div class="form-group">
+        <label for="inputPassword2" style="float: left">Repite el nuevo password</label>
+        <input type="password" class="form-control" id="inputPassword2" ng-model="model.password2" placeholder="Password">
+    </div>
+    <div class="form-group">
+        <label for="profileImg" style="float: left">Cambia la imagen de tu usuario</label> <br><br>
+        <input type="file" id="profileImg" style="float: left" file-model="myFile"><br><br>
+    </div>
+    <div class="form-group">
+        <label for="sub" style="float: left">
+            <button id="sub" type="submit" class="btn btn-default" ng-click="updateUsr()" style="float: left" ng-disabled="model.subStatus"><i class="fa fa-user"></i> {{model.subText}}</button>
+        </label>
+    </div>
+</form>

@@ -18,30 +18,36 @@
             <div class="btn-group" style="margin-top:7px;">
                 <div class="btn-group" uib-dropdown is-open="status.isopen1">
                     <button id="single-button" type="button" class="btn btn-primary btnnavbar" uib-dropdown-toggle ng-disabled="disabled">
-                        Categoría <span class="caret"></span>
+                        {{search.race.name||'Razas'}} <span class="caret"></span>
                     </button>
                     <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
-                        <li role="menuitem"><a href="#">Action</a></li>
-                        <li role="menuitem"><a href="#">Another action</a></li>
-                        <li role="menuitem"><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li role="menuitem"><a href="#">Separated link</a></li>
+                        <li ng-repeat="race in races | orderBy:'name'" role="menuitem"><span style="cursor:pointer;" ng-click="updateSearchParam('race',race.id,race.name)">{{ race.name }}</span></li>
                     </ul>
                 </div>
-                <div class="btn-group" uib-dropdown is-open="status.isopen">
-                    <input type="text" class="form-control" placeholder="Busca en Walladog" style="border-radius:0px;">
-                </div>
+                <!--<div class="btn-group" uib-dropdown is-open="status.isopen">
+                    <input type="text" class="form-control" placeholder="Busca en Walladog" style="border-radius:0px;" ng-keypress="onKeyPressSearch($event)">
+                </div>-->
                 <div class="btn-group" uib-dropdown is-open="status.isopen2">
                     <button id="single-button" type="button" class="btn btn-primary btnnavbar" uib-dropdown-toggle ng-disabled="disabled">
-                        Distancia <span class="caret"></span>
+                        {{search.distance.name||'Distancia'}} <span class="caret"></span>
                     </button>
                     <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
-                        <li role="menuitem"><a href="#">Action</a></li>
-                        <li role="menuitem"><a href="#">Another action</a></li>
-                        <li role="menuitem"><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li role="menuitem"><a href="#">Separated link</a></li>
+                        <li role="menuitem" ng-click="updateSearchParam('distance',5,'5Km')"><span style="cursor:pointer">5 km</span></li>
+                        <li role="menuitem" ng-click="updateSearchParam('distance',10,'10Km')"><span style="cursor:pointer">10 km</span></li>
+                        <li role="menuitem" ng-click="updateSearchParam('distance',15,'15Km')"><span style="cursor:pointer">15 km</span></li>
+                        <li role="menuitem" ng-click="updateSearchParam('distance',20,'20Km')"><span style="cursor:pointer">20 km</span></li>
+                        <li role="menuitem" ng-click="updateSearchParam('distance',10000,'Sin distancia')"><span style="cursor:pointer">Sin distancia</span></li>
                     </ul>
+                </div>
+                <div class="btn-group">
+                    <button id="single-button-search" type="button" class="btn btn-success btnnavbarsuccess" ng-click="submitSearch();">
+                        Buscar <i class="fa fa-search"></i>
+                    </button>
+                </div>
+                <div class="btn-group">
+                    <button id="single-button-clean" type="button" class="btn btn-danger btnnavbarclean" ng-click="cleanSearch();">
+                        Limpiar <i class="fa fa-recycle"></i>
+                    </button>
                 </div>
             </div>
         </ul>
@@ -49,27 +55,22 @@
             <li class="dropdown hidden-xs" uib-dropdown>
                 <div class="btn-group" uib-dropdown is-open="status.isopen3" style="margin-top:7px;">
                     <button id="single-button" type="button" class="btn btn-primary btnnavbar" uib-dropdown-toggle ng-disabled="disabled">
-                        Usuarios <i class="fa fa-user"></i>
+                        {{uData.userName?uData.userName:'Usuario'}} <i class="fa fa-user"></i>
                     </button>
                     <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
-                        <li ui-sref-active="active" role="menuitem">
+                        <li ng-if="!uData.isLogged" ui-sref-active="active" role="menuitem">
                             <a ui-sref="root.auth" ng-click="navCollapsed = !navCollapsed">
                                 <i class="fa fa-sign-in"></i>
                                 Identificarse</a>
                         </li>
-                        <li ui-sref-active="active" role="menuitem">
+                        <li ng-if="uData.isLogged" ui-sref-active="active" role="menuitem">
                             <a ui-sref="root.logout" ng-click="navCollapsed = !navCollapsed">
                                 <i class="fa fa-sign-out"></i>
                                 Salir</a>
                         </li>
-                        <li ui-sref-active="active" role="menuitem">
-                            <a ui-sref="root.infinite" ng-click="navCollapsed = !navCollapsed">
-                                <i class="fa fa-shopping-cart"></i>
-                                Mis transacciones</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li ui-sref-active="active" role="menuitem">
-                            <a ui-sref="root.myaccount" ng-click="navCollapsed = !navCollapsed">
+                        <li ng-if="uData.isLogged" class="divider"></li>
+                        <li ng-if="uData.isLogged" ui-sref-active="active" role="menuitem">
+                            <a ui-sref="root.uprofile" ng-click="navCollapsed = !navCollapsed">
                                 <i class="fa fa-user-md"></i>
                                 Area de usuario</a>
                         </li>
@@ -77,7 +78,7 @@
                 </div>
             </li>
             <li class="dropdown hidden-lg hidden-md hidden-sm">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" style="margin-left:10px;">
                     <li ui-sref-active="active">
                         <a ui-sref="root.auth" ng-click="navCollapsed = !navCollapsed" style="color:white;">
                             <i class="fa fa-sign-in"></i>
@@ -89,20 +90,15 @@
                             Logout</a>
                     </li>
                     <li ui-sref-active="active">
-                        <a ui-sref="root.buy" ng-click="navCollapsed = !navCollapsed" style="color:white;">
-                            <i class="fa fa-credit-card"></i>
-                            Comprar</a>
-                    </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="root.sell" ng-click="navCollapsed = !navCollapsed" style="color:white;">
-                            <i class="fa fa-money"></i>
-                            Vender</a>
+                        <a ui-sref="root.uprofile" ng-click="navCollapsed = !navCollapsed" style="color:white;">
+                            <i class="fa fa-user"></i>
+                            Area de usuario</a>
                     </li>
                     <!-- <li class="divider"></li> -->
                     <li ui-sref-active="active">
-                        <a ui-sref="root.transactions" ng-click="navCollapsed = !navCollapsed" style="color:white;">
-                            <i class="fa fa-shopping-cart"></i>
-                            Transacciones</a>
+                        <a ui-sref="root.apitest" ng-click="navCollapsed = !navCollapsed" style="color:white;">
+                            <i class="fa fa-gears"></i>
+                            PruebasAPI</a>
                     </li>
                 </ul>
             </li>
