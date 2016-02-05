@@ -57,12 +57,13 @@
         }
     ]);
 
-    app.run(['$log','$state','$rootScope','configService', function ($log,$state,$rootScope,configService) {
+    app.run(['$log','$state','$rootScope','configService', 'globalService', function ($log,$state,$rootScope,configService,globalService) {
 
         configService.setUpInitVars();
         configService.setUpMessages();
 
-        if(($state.current.name==='root.home' || $state.current.name==='') && $rootScope.uData.isLogged === true){
+        var isLogged = globalService.getStorageItem('lcookier');
+        if(($state.current.name==='root.home' || $state.current.name==='') && typeof isLogged !== 'object' && isLogged){
             $rootScope.showCameraIcon = true;
         }
 
@@ -85,7 +86,9 @@
         $rootScope.$on('$stateChangeSuccess',
             function(event, toState, toParams, fromState, fromParams){
                 //$log.warn('Fired success');
-                if(toState.name==="root.home" && $rootScope.uData.isLogged === true){
+                var isLogged = globalService.getStorageItem('lcookier');
+
+                if(toState.name==="root.home" && typeof isLogged !== 'object' && isLogged){
                     $rootScope.showCameraIcon = true;
                 }else{
                     $rootScope.showCameraIcon = false;

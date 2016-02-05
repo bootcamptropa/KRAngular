@@ -93,40 +93,55 @@
                     //TODO: avatar_url no debe ser obligatoria en el api.
                     avatar_url:"http://walladog.com/assets/logos/walladogt.png"
                 };
-                authService.doRegister(registerData).then(function(data){
-                    setMsg($scope.err,'Registro exitoso',false);
-                    var loginData = {
-                        username:$scope.rusername,
-                        password:$scope.rpassword
-                    };
-                    authService.doLoginOAuth2(loginData).then(function(data){
-                        if(data.access_token && data.refresh_token){
-                            loginsService.getUserInfo().then(function(dataCustomer){
-                                $rootScope.uData.avatar=dataCustomer.avatar_url;
-                                $rootScope.uData.email=dataCustomer.email;
-                                $rootScope.uData.firstName=dataCustomer.first_name;
-                                $rootScope.uData.lastName=dataCustomer.last_name;
-                                $rootScope.uData.userId=dataCustomer.id;
-                                $rootScope.uData.userName=dataCustomer.username;
-                                $rootScope.uData.isLogged=true;
-                                $state.go('root.uprofile');
-                            },function(errCustomer){
-                                $log.warn(errCustomer);
-                                $scope.err2.visible=true;
-                                $scope.err2.error='Error en el registro:';
-                                $scope.err2.error_description=JSON.stringify(errCustomer.data);
-                            });
-                        }
-                    },function(err){
-                        $log.warn(err);
-                        $scope.err2.visible=true;
-                        $scope.err2.error='Error al identificarte:';
-                        $scope.err2.error_description=JSON.stringify(err.data);
-                    });
 
-                },function(err){
-                    setMsg($scope.err,err.data,'Error en el registro');
-                });
+                if ($scope.rpassword !== $scope.rpassword2){
+                    $scope.err.visible = true;
+                    $scope.err.error = 'Error en el registro:';
+                    $scope.err.error_description = 'Las contraseñas no coinciden';
+                } else if ($scope.remail !== $scope.remail2){
+                    $scope.err.visible = true;
+                    $scope.err.error = 'Error en el registro:';
+                    $scope.err.error_description = 'Los e-mail no coinciden';
+                } else {
+                    authService.doRegister(registerData).then(function (data) {
+                        setMsg($scope.err, 'Registro exitoso', false);
+                        var loginData = {
+                            username: $scope.rusername,
+                            password: $scope.rpassword
+                        };
+                        authService.doLoginOAuth2(loginData).then(function (data) {
+                            if (data.access_token && data.refresh_token) {
+                                loginsService.getUserInfo().then(function (dataCustomer) {
+                                    $rootScope.uData.avatar = dataCustomer.avatar_url;
+                                    $rootScope.uData.email = dataCustomer.email;
+                                    $rootScope.uData.firstName = dataCustomer.first_name;
+                                    $rootScope.uData.lastName = dataCustomer.last_name;
+                                    $rootScope.uData.userId = dataCustomer.id;
+                                    $rootScope.uData.userName = dataCustomer.username;
+                                    $rootScope.uData.isLogged = true;
+
+                                    globalService.setStorageItem('lcookier', true);
+                                    globalService.setStorageItem('ucookier', dataCustomer.username);
+
+                                    $state.go('root.uprofile');
+                                }, function (errCustomer) {
+                                    $log.warn(errCustomer);
+                                    $scope.err2.visible = true;
+                                    $scope.err2.error = 'Error en el registro:';
+                                    $scope.err2.error_description = JSON.stringify(errCustomer.data);
+                                });
+                            }
+                        }, function (err) {
+                            $log.warn(err);
+                            $scope.err2.visible = true;
+                            $scope.err2.error = 'Error al identificarte:';
+                            $scope.err2.error_description = JSON.stringify(err.data);
+                        });
+
+                    }, function (err) {
+                        setMsg($scope.err, err.data, 'Error en el registro');
+                    });
+                }
             };
 
             $scope.doLoginOAuth2 = function(){
@@ -144,6 +159,10 @@
                             $rootScope.uData.userId=dataCustomer.id;
                             $rootScope.uData.userName=dataCustomer.username;
                             $rootScope.uData.isLogged=true;
+
+                            globalService.setStorageItem('lcookier',true);
+                            globalService.setStorageItem('ucookier',dataCustomer.username);
+
                             $state.go('root.uprofile');
                         },function(errCustomer){
                             $log.warn(errCustomer);
@@ -181,6 +200,8 @@
 
                 globalService.removeStorage('wcookie');
                 globalService.removeStorage('wcookier');
+                globalService.removeStorage('lcookier');
+                globalService.removeStorage('ucookier');
 
             };
 
