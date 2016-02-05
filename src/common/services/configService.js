@@ -18,8 +18,10 @@ angular.module('configService', [])
                     if(wtoken && wtoken2){
                         $rootScope.uData.wcookie = wtoken;
                         $rootScope.uData.wcookier = wtoken2;
-                        if($rootScope.uData.isLogged===true) {
+                        var isLogged = globalService.getStorageItem('lcookier');
+                        if(typeof isLogged !== 'object' && isLogged) {
                             this.getUserInfo();
+                            $rootScope.showCameraIcon = true;
                         }
                     }
 

@@ -109,6 +109,10 @@
                                 $rootScope.uData.userId=dataCustomer.id;
                                 $rootScope.uData.userName=dataCustomer.username;
                                 $rootScope.uData.isLogged=true;
+
+                                globalService.setStorageItem('lcookier',true);
+                                globalService.setStorageItem('ucookier',dataCustomer.username);
+
                                 $state.go('root.uprofile');
                             },function(errCustomer){
                                 $log.warn(errCustomer);
@@ -144,6 +148,10 @@
                             $rootScope.uData.userId=dataCustomer.id;
                             $rootScope.uData.userName=dataCustomer.username;
                             $rootScope.uData.isLogged=true;
+
+                            globalService.setStorageItem('lcookier',true);
+                            globalService.setStorageItem('ucookier',dataCustomer.username);
+
                             $state.go('root.uprofile');
                         },function(errCustomer){
                             $log.warn(errCustomer);
@@ -181,6 +189,8 @@
 
                 globalService.removeStorage('wcookie');
                 globalService.removeStorage('wcookier');
+                globalService.removeStorage('lcookier');
+                globalService.removeStorage('ucookier');
 
             };
 
