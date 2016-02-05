@@ -45,7 +45,7 @@
                 });
         }]);
 
-    app.controller('ProductController', ['$scope', '$log', '$state','NgMap','productService','productData','$rootScope', function ($scope, $log, $state,NgMap,productService,productData,$rootScope) {
+    app.controller('ProductController', ['$scope', '$log', '$state','NgMap','productService','productData','$rootScope','globalService', function ($scope, $log, $state,NgMap,productService,productData,$rootScope,globalService) {
         $log.info('App:: Starting CustomerController');
 
         var init = function () {
@@ -97,12 +97,16 @@
 
             $scope.changeCollaps = function () {
                 if ($rootScope.uData.userId != productData.seller.id) {
-                    if(buyed) {
+                    var isLogged = globalService.getStorageItem('lcookier');
+                    if(typeof isLogged !== 'object' && isLogged) {
                         $scope.isCollapsed = !$scope.isCollapsed;
+                    }else{
+                        alert('Debe estar registrado para comprar un producto.');
+                        $state.go('root.auth');
                     }
 
                 } else {
-                    $scope.buyText = 'Esto es tuyo :D';
+                    $scope.buyText = 'No puedes comprar tus propios productos :D';
                 }
             };
 
